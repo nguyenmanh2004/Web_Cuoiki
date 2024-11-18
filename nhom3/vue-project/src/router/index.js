@@ -24,6 +24,11 @@ const router = createRouter({
       name: 'Trangchu',
       component: () => import('../views/Home.vue'),  // Lazy load component AboutView
     },
+    {
+      path: '/TrangchuSach',  // Route cho trang "About"
+      name: 'TrangchuSach',
+      component: () => import('../views/TrangchuSach.vue'),  // Lazy load component AboutView
+    },
 
   ],
 })

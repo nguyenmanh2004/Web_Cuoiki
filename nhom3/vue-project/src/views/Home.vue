@@ -1,12 +1,14 @@
 <template>
   <div>
+
     <MostBorrowedBooks />
     <TopRatedBooks />
     <BlogSection />
     <FooterMain/>
+
   </div>
 </template>
-
+ 
 <script>
 import MostBorrowedBooks from '../components/MostBorrowedBooks.vue';
 import TopRatedBooks from '../components/TopRatedBooks.vue';
