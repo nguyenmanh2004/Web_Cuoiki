@@ -29,7 +29,16 @@ const router = createRouter({
       name: 'TrangchuSach',
       component: () => import('../views/TrangchuSach.vue'),  // Lazy load component AboutView
     },
-
+    {
+      path: '/Trangquanlisach',  // Route cho trang "About"
+      name: 'Trangquanlysach',
+      component: () => import('../views/Trangquanlysach.vue'),  // Lazy load component AboutView
+    },
+    {
+      path: '/Trangthemsach',  // Route cho trang "About"
+      name: 'Trangsach',
+      component: () => import('../views/AddBookView.vue'),  // Lazy load component AboutView
+    },
   ],
 })
 
