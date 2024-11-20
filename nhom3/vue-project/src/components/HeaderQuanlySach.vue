@@ -18,6 +18,9 @@
         <button class="nav-item" @click="viewMyBooks">
           <i class="fas fa-bookmark"></i> Sách của tôi
         </button>
+        <button class="nav-item" @click="thongke">
+          <i class="fa-regular fa-calendar"></i> Thống Kê
+        </button>
         <div class="user-menu">
           <button class="nav-item user-name" @click="toggleMenu">
             <i class="fas fa-user"></i> {{ loggedInUsername || 'Tài Khoản' }}
@@ -79,6 +82,9 @@ export default {
     // Redirect to the My Books page (Sách của tôi)
     viewMyBooks() {
       this.$router.push({ path: "/sachcuatoi" }) // Redirect to sachcuatoi.vue
+    },
+    thongke() {
+      this.$router.push({ path: "/thongke" }) // Redirect to sachcuatoi.vue
     }
   },
 };

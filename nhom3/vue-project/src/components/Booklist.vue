@@ -232,7 +232,7 @@ export default {
 /* Giao diện phân trang */
 .pagination {
   position: absolute;
-  bottom: 50px;
+  bottom: 35px;
   /* Đảm bảo nút phân trang luôn nằm dưới cùng */
   right: 20px;
   /* Đặt nút phân trang ở góc trái */
