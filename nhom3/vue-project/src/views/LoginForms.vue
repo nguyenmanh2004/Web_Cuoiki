@@ -66,7 +66,7 @@ export default {
       if (storedEmail === this.email && storedPassword === this.password) {
         if (storedRole === this.role) {
           alert(`Đăng nhập thành công với vai trò ${this.getRoleName(storedRole)}!`);
-          this.$router.push({ name: "about" }); // Redirect to the "About" page
+          window.location.href = '/Trangquanlisach'; // Redirect to the "About" page
         } else {
           alert("Bạn đã nhập đúng thông tin nhưng không có quyền phù hợp.");
         }

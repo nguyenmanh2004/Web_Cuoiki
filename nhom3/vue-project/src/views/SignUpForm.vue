@@ -2,6 +2,17 @@
   <div class="signup-container">
     <h1>Sign Up</h1>
     <form @submit.prevent="handleSignUp">
+      <!-- Trường nhập tên người dùng -->
+      <input
+        type="text"
+        placeholder="Nhập tên người dùng"
+        v-model="username"
+        required
+        :class="{'input-error': usernameError}"
+      />
+      <p v-if="usernameError" class="error-text">Tên người dùng không được để trống.</p>
+
+      <!-- Trường nhập email -->
       <input
         type="email"
         placeholder="Nhập đúng email"
@@ -11,6 +22,7 @@
       />
       <p v-if="emailError" class="error-text">Vui lòng nhập email hợp lệ.</p>
 
+      <!-- Trường nhập mật khẩu -->
       <input
         type="password"
         placeholder="Mật khẩu từ 8 ký tự"
@@ -24,10 +36,10 @@
       <select v-model="role" required class="role-select">
         <option value="reader">Reader</option>
         <option value="admin">Admin</option>
-        <option value="librarian">Thủ thư</option> <!-- Added role -->
+        <option value="librarian">Thủ thư</option>
       </select>
 
-      <!-- Button container for Sign Up and Log In -->
+      <!-- Button container -->
       <div class="button-container">
         <button type="submit" class="signup-button">Confirm</button>
         <button type="button" @click="goToLogin" class="login-button">Log In</button>
@@ -35,45 +47,51 @@
     </form>
   </div>
 </template>
+
 <script>
 export default {
   name: "SignUpForm",
   data() {
     return {
+      username: "",
       email: "",
       password: "",
       role: "reader", // Default role
+      usernameError: false,
       emailError: false,
       passwordError: false,
     };
   },
   methods: {
     validateForm() {
-      this.emailError = !/\S+@\S+\.\S+/.test(this.email); // Check email validity
-      this.passwordError = this.password.length < 8; // Check password length
-      return !this.emailError && !this.passwordError;
+      this.usernameError = this.username.trim() === ""; // Kiểm tra tên người dùng
+      this.emailError = !/\S+@\S+\.\S+/.test(this.email); // Kiểm tra định dạng email
+      this.passwordError = this.password.length < 8; // Kiểm tra độ dài mật khẩu
+      return !this.usernameError && !this.emailError && !this.passwordError;
     },
     handleSignUp() {
       if (!this.validateForm()) return;
 
-      // Store user information in localStorage
+      // Lưu thông tin vào localStorage
+      localStorage.setItem("username", this.username);
       localStorage.setItem("email", this.email);
       localStorage.setItem("password", this.password);
-      localStorage.setItem("role", this.role); // Store the selected role
+      localStorage.setItem("role", this.role);
 
       alert(
-        `Sign Up Successful! Your role is: ${this.role === "admin" ? "Admin" : this.role === "librarian" ? "Thủ thư" : "Reader"}.`
+        `Đăng ký thành công! Xin chào, ${this.username} (${this.role === "admin" ? "Admin" : this.role === "librarian" ? "Thủ thư" : "Reader"}).`
       );
 
-      // Redirect to Login page
+      // Chuyển hướng đến trang login
       this.$router.push("/login");
     },
     goToLogin() {
-      this.$router.push("/login"); // Navigate to Login page
+      this.$router.push("/login");
     },
   },
 };
 </script>
+
 <style scoped>
 .signup-container {
   width: 90%;
