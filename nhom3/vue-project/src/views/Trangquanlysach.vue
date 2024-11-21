@@ -116,7 +116,7 @@ export default {
       const sampleBooks = [
         { id: 1, title: "Doremon tập 23", author: "FuJIKO F FuJIO ", category: "Truyện Manga", year: 2022, status: "Còn sách", image: "https://i.pinimg.com/474x/87/2e/26/872e26dd3703cf629c656720b8695868.jpg" },
         { id: 2, title: "Dragon Ball Super tập 1", author: "Akira Toriyama", category: "Truyện Manga", year: 2023, status: "Đã mượn", image: "https://i.pinimg.com/736x/ed/ba/12/edba12e77540d7f7e3fb037a1ebcdbe5.jpg" },
-        { id: 3, title: "Hunter X Hunter   tập 4", author: "Togashi Yoshihiro", category: "Truyện Mangga", year: 2019, status: "Hư hỏng", image: "https://i.pinimg.com/736x/74/1f/59/741f592b0acef332bf9deaa6218d9049.jpg" },
+        { id: 3, title: "Hunter X Hunter  tập 4", author: "Togashi Yoshihiro", category: "Truyện Mangga", year: 2019, status: "Hư hỏng", image: "https://i.pinimg.com/736x/74/1f/59/741f592b0acef332bf9deaa6218d9049.jpg" },
         { id: 4, title: "Kimetsu No yaiba tập 12", author: "Gotoge Koyoharu", category: "Thể loại Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/4a/02/4a/4a024a1dd75ea0ce6b0036f0cf3b1a45.jpg" },
         { id: 5, title: "Sách 2", author: "Tác giả B", category: "Thể loại Y", year: 2021, status: "Đã mượn", image: "https://via.placeholder.com/100" },
         { id: 6, title: "Sách 3", author: "Tác giả C", category: "Thể loại Z", year: 2019, status: "Hư hỏng", image: "https://via.placeholder.com/100" },
@@ -142,7 +142,7 @@ export default {
         { id: 26, title: "Sách 3", author: "Tác giả C", category: "Thể loại Z", year: 2019, status: "Hư hỏng", image: "https://via.placeholder.com/100" },
         { id: 27, title: "Sách 1", author: "Tác giả A", category: "Thể loại X", year: 2020, status: "Còn sách", image: "https://via.placeholder.com/100" },
         { id: 28, title: "Sách 2", author: "Tác giả B", category: "Thể loại Y", year: 2021, status: "Đã mượn", image: "https://via.placeholder.com/100" },
-        { id: 3, title: "Hunter X Hunter   tập 5", author: "Togashi Yoshihiro", category: "Truyện Mangga", year: 2019, status: "Hư hỏng", image: "https://i.pinimg.com/736x/6e/94/32/6e9432165cb0f92180510a8738c401ab.jpg" },
+        { id: 3, title: "Hunter X Hunter  tập 5", author: "Togashi Yoshihiro", category: "Truyện Mangga", year: 2019, status: "Hư hỏng", image: "https://i.pinimg.com/736x/6e/94/32/6e9432165cb0f92180510a8738c401ab.jpg" },
         { id: 30, title: "Sách 1", author: "Tác giả A", category: "Thể loại X", year: 2020, status: "Còn sách", image: "https://via.placeholder.com/100" },
         { id: 31, title: "Sách 2", author: "Tác giả B", category: "Thể loại Y", year: 2021, status: "Đã mượn", image: "https://via.placeholder.com/100" },
         { id: 32, title: "Sách 3", author: "Tác giả C", category: "Thể loại Z", year: 2019, status: "Hư hỏng", image: "https://via.placeholder.com/100" },

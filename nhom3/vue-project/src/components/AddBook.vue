@@ -84,7 +84,7 @@ export default {
         status: "Còn sách",
         image: null, 
       },
-      successSound: new Audio(require('@/assets/success-sound.mp3')),
+      
     };
   },
   methods: {
