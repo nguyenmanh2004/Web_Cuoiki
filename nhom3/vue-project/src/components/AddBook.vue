@@ -84,6 +84,7 @@ export default {
         status: "Còn sách",
         image: null, 
       },
+      successSound: new Audio(require('@/assets/success-sound.mp3')),
     };
   },
   methods: {
@@ -102,6 +103,7 @@ export default {
       this.$emit("addBook", { ...this.book });
 
       this.resetForm();
+      this.successSound.play(); 
     },
     cancelAdd() {
       this.$emit("closePanel"); // Emit to close the panel
