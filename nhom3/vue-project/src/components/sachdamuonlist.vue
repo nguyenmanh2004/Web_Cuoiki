@@ -139,7 +139,12 @@ export default {
 
 <style scoped>
 .book-list {
+    background-image: url('https://i.pinimg.com/enabled_lo_mid/736x/c8/30/17/c83017c255be137c08c568c3e284185a.jpg');
+    background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ phần tử */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
     overflow-y: auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -170,7 +175,16 @@ export default {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
+.book-item:hover {
+    background-color: #f0f8ff; /* Màu nền nhẹ khi hover */
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.book-item.selected {
+    border-color: #28a745;
+    background-color: #e9ffe9; /* Hiệu ứng nhẹ khi được chọn */
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.5); /* Màu xanh lá nhạt */
+}
 .return-book-btn {
     padding: 8px 16px;
     background: linear-gradient(45deg, #ff5f6d, #ffc371); /* Gradient background */
@@ -275,6 +289,7 @@ export default {
 }
 
 .thank-you-message {
+
     position: fixed;
     bottom: 120px;
     left: 50%;

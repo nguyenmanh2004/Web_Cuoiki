@@ -113,6 +113,7 @@ export default {
 <style scoped>
 /* Container chính của form */
 .login-container {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   width: 70%; /* Đảm bảo form hiển thị tốt trên màn hình nhỏ */
   max-width: 400px; /* Giới hạn tối đa kích thước */
   margin: 70px auto;
@@ -198,12 +199,14 @@ export default {
   flex: 1; /* Các nút chia đều khoảng trống */
   background-color: #007bff; /* Màu xanh cho nút xác nhận */
   margin-right: 5px;
+  color:white;
 }
 
 .signup-button {
   flex: 1; /* Các nút chia đều khoảng trống */
   background-color: #28a745; /* Màu xanh lá cho Sign Up */
   margin-left: 5px;
+  color: white;
 }
 
 .confirm-button:hover {

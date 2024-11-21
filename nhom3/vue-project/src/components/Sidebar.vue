@@ -14,8 +14,8 @@
     </button>
 
     <!-- Only show to readers -->
-    <button v-if="isReader" @click="borrowBook">
-      <i class="fa-regular fa-book"></i> Mượn sách
+    <button v-if="isReader" @click="borrowBook" >
+      <i class="fa-regular fa-book" ></i> Mượn sách
     </button>
 
     <!-- Visible to all users -->
@@ -32,7 +32,7 @@
     </ul>
     
     <div v-if="!isFilterVisible" class="sidebar-image">
-      <img src="https://i.pinimg.com/originals/9a/95/c8/9a95c862249406339f4bb5c0b3cb0b78.gif" alt="Library Image" />
+      <img src="https://i.pinimg.com/originals/3b/d2/3d/3bd23d0f44f4a573328bcd7db920d77d.gif" alt="Library Image" />
     </div>
   </aside>
 </template>
@@ -86,15 +86,17 @@ export default {
 <style>
 .sidebar {
   width: 240px; /* Increased width for comfort */
-  background: #0ea5e9;
+  background: #30618C;
   color: white; /* White text for contrast */
   padding: 20px;
-  border-right: 1px solid #004080;
- 
+  border-right: 1px solid #cded8e;
+  transition: all 0.3s ease-in-out;
   height: 100%;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   height:485px;
   position:absolute;
+  
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .sidebar h2 {
@@ -108,6 +110,7 @@ export default {
 }
 
 .sidebar button {
+    transform: scale(1.05);  /* Phóng to nhẹ */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -145,6 +148,7 @@ export default {
   list-style: none;
   padding: 5px 0;
   margin: 0;
+  text-align: center; /* Căn giữa văn bản */
 }
 
 .filter-options li {
@@ -152,6 +156,7 @@ export default {
   color: #004080;
   padding: 1px;
   border-radius: 5px;
+ 
   margin: 5px 0;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -179,5 +184,18 @@ export default {
   height: auto;
   border-radius: 8px;
 }
+.sidebar button::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  opacity: 0;
+  pointer-events: none;
+}
+.sidebar button:active::after {
+  opacity: 1;
+  transform: scale(4);
+}
 </style>
-

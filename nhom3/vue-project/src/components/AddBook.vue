@@ -125,6 +125,7 @@ export default {
 
 <style scoped>
 .add-book {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   max-width: 800px; /* Reduced width to make the form slightly smaller */
   margin: 50px auto;
   padding: 20px; /* Reduced padding for smaller form size */
@@ -134,7 +135,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url('https://www.example.com/your-background-image.jpg');
+  background-image: url('https://i.pinimg.com/474x/77/0e/4d/770e4df0683263bd8782eba3c8b70e73.jpg');
   background-size: cover;
   background-position: center;
   position: relative;
@@ -174,8 +175,10 @@ export default {
   font-size: 18px;
   color: #6200ea;
   margin-right: 10px;
+  transition: transform 0.3s;
 }
-
+.input-wrapper input:focus + i, .input-wrapper select:focus + i {
+  transform: rotate(360deg);}
 input,
 select,
 button {
@@ -231,7 +234,10 @@ button:focus {
 .form-actions button {
   width: 48%;
 }
-
+.input-wrapper input:focus, .input-wrapper select:focus {
+  border: 1px solid #ec125a; /* Màu viền khi focus */
+  box-shadow: 0 0 8px rgba(255, 128, 171, 0.5); /* Hiệu ứng ánh sáng */
+}
 @media (max-width: 768px) {
   .add-book {
     padding: 15px; /* Reduced padding for smaller screens */

@@ -75,6 +75,7 @@
   
   <style scoped>
   .panel-help {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     position: fixed;
     top: 0;
     left: 0;
@@ -85,14 +86,19 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    color:black;
+    
   }
   
   .panel {
-    background-color: white;
+    background: linear-gradient(135deg, #ffffff, #e6f7ff);
     border-radius: 8px;
     width: 400px;
     padding: 20px;
     text-align: center;
+    border: 2px solid #4a90e2; /* Viền màu xanh */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Tăng cường bóng đổ */
+
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     animation: slideIn 0.5s ease-out;
   }
@@ -100,13 +106,13 @@
   /* Slide-in animation */
   @keyframes slideIn {
     from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
   }
   
   .panel-image {
@@ -141,21 +147,25 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+   
+    background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient nút */
+  transition: background 0.3s, transform 0.2s; 
   }
   
   .panel-buttons button:hover {
-    background-color: #0056b3;
+   
+    background: linear-gradient(90deg, #0056b3, #004085); /* Đậm hơn khi hover */
+  transform: translateY(-2px); /* Hiệu ứng nâng nhẹ */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Bóng đổ khi hover */
   }
   
   .ok-button {
-    background-color: #28a745;
-  }
-  
-  .ok-button:hover {
-    background-color: #218838;
-  }
-  
+  background: linear-gradient(90deg, #28a745, #218838); /* Gradient xanh lá */
+}
+
+.ok-button:hover {
+  background: linear-gradient(90deg, #218838, #1e7e34); /* Đậm hơn khi hover */
+}
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .panel {

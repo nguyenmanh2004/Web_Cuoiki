@@ -98,6 +98,7 @@
   
   <style scoped>
 .edit-book {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   max-width: 800px; /* Giảm chiều rộng giống AddBook */
   margin: 50px auto;
   padding: 20px; /* Padding giống AddBook */

@@ -123,6 +123,7 @@ export default {
   display: flex;
   justify-content: space-between; /* Căn đều các ô tìm kiếm */
   gap: 10px;
+  
   margin-bottom: 30px;
   padding: 0 20px; /* Thêm padding để tránh dính vào mép */
 }
@@ -130,6 +131,8 @@ export default {
 /* Các ô tìm kiếm */
 .search-filter input {
   padding: 12px 15px;
+  background: linear-gradient(135deg, #e3f2fd, #f3f8fd); /* Gradient nền xanh nhạt */
+
   border: 2px solid #ddd;
   border-radius: 12px;
   width: 250px; /* Mở rộng chiều rộng của input */
@@ -167,7 +170,12 @@ export default {
 
 /* Giao diện danh sách sách */
 .book-list {
-  background: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-image: url('https://i.pinimg.com/enabled_lo_mid/736x/c8/30/17/c83017c255be137c08c568c3e284185a.jpg');
+    background-size: cover; /* Đảm bảo ảnh phủ kín toàn bộ phần tử */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+ 
   margin-left: 220px;
   padding-left: 30px;
   max-height: calc(100vh - 100px);
@@ -219,10 +227,11 @@ export default {
 }
 /* Từng mục sách */
 .book-item {
-  margin: 15px;
+
+  margin: 10px;
   background-color: #fff;
   border: 2px solid #ddd;
-  padding: 15px;
+  padding: 10px;
   text-align: center;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
@@ -233,17 +242,18 @@ export default {
 /* Hiệu ứng hover */
 .book-item:hover {
   transform: translateY(-5px);
-  border-color: #007bff;
- 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-color: #601eb0;
+  background-color: #f0f8ff; /* Màu nền nhẹ khi hover */
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  
 }
 
-/* Khi được chọn */
 .book-item.selected {
-  border-color: #6f42c1;
-  border-width: 3px;
+    border-color: #28a745;
+    background-color: #e9ffe9; /* Hiệu ứng nhẹ khi được chọn */
+    box-shadow: 0 0 12px rgba(40, 167, 69, 0.5); /* Màu xanh lá nhạt */
 }
-
 /* Hình ảnh sách */
 .book-image {
   width: 120px;

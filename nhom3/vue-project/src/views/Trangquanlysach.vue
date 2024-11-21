@@ -128,8 +128,8 @@ export default {
       this.isAddBookPanelVisible = true;
     },
     closeAddBookPanel() {
-      this.isAddBookPanelVisible = false;
-    },
+  this.isAddBookPanelVisible = false;
+},
     closeEditBookPanel() {
       this.isEditBookPanelVisible = false;
     },
@@ -148,6 +148,14 @@ export default {
         this.showModal = true;
       }
     },
+    addBook(newBook) {
+      const uniqueId = Date.now() + Math.floor(Math.random() * 1000);
+      newBook.id = uniqueId;
+      this.books.push(newBook);
+      this.allBooks.push(newBook);
+      localStorage.setItem("books", JSON.stringify(this.books));
+     
+    },
     deleteBook() {
       if (this.selectedBookId !== null) {
         this.modalMessage = "Bạn có chắc muốn xóa sách này không?";
@@ -161,13 +169,13 @@ export default {
     borrowBook() {
       if (this.selectedBookId !== null) {
         const book = this.books.find(b => b.id === this.selectedBookId);
-        if (book && book.status !== "Đã mượn") {
+        if (book && book.status === "Còn sách" ) {
           const currentDate = new Date().toLocaleDateString();
           this.modalMessage = `Bạn có chắc muốn mượn sách này? Ngày mượn: ${currentDate}`;
           this.actionToConfirm = this.confirmBorrowBook;
           this.showModal = true;
         } else {
-          this.modalMessage = "Sách đã được mượn hoặc không có trong kho.";
+          this.modalMessage = "Sách đã được mượn hoặc bị hỏng vui lòng chọn sách khác.";
           this.showModal = true;
         }
       } else {

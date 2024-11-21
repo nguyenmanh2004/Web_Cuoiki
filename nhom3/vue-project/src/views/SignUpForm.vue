@@ -79,7 +79,7 @@ export default {
       localStorage.setItem("role", this.role);
 
       alert(
-        `Đăng ký thành công! Xin chào, ${this.username} (${this.role === "admin" ? "Admin" : this.role === "librarian" ? "Thủ thư" : "Reader"}).`
+        `Đăng ký thành công! Xin chào, ${this.username} (${this.role === "admin" ? "Quản Trị Viên" : this.role === "librarian" ? "Thủ thư" : "Reader"}).`
       );
 
       // Chuyển hướng đến trang login
@@ -95,6 +95,7 @@ export default {
 <style scoped>
 .signup-container {
   width: 90%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   max-width: 400px;
   margin: 70px auto;
   padding: 20px;

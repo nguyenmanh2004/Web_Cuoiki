@@ -150,6 +150,7 @@
   </script>
   <style scoped>
   .profile-container {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,6 +182,11 @@
   overflow: hidden;
   border: 2px solid #ddd;
 }
+.image-container:hover {
+  border-color: #007bff; /* Viền xanh khi hover */
+  transition: border-color 0.3s ease;
+}
+
 
 .avatar {
   width: 100%;
@@ -267,7 +273,12 @@
   background-color: #007bff;
   color: white;
 }
-
+.input-field:focus {
+  border-color: #007bff; /* Viền xanh khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 /* Responsive styles */
 @media (max-width: 768px) {
   .personal-info {

@@ -234,6 +234,7 @@
 }
 
 .statistics-chart {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   padding: 20px;
   font-family: Arial, sans-serif;
   overflow: hidden;

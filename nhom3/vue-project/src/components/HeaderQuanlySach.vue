@@ -107,20 +107,25 @@ export default {
 <style scoped>
 /* Container Header */
 .header {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: #30618C;
   color: white;
   padding: 10px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: "Roboto", sans-serif;
+  
   position: sticky;
   top: 0;
   z-index: 1000;
 }
-
+.profile-image:hover {
+  transform: rotate(360deg);
+  transition: transform 0.6s ease-in-out;
+}
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .logo {
@@ -153,7 +158,10 @@ export default {
   transition: all 0.3s;
   padding: 8px 15px;
   border-radius: 25px;
+  background: linear-gradient(135deg, #eb759c 0%, #f50057 100%);
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
 }
+
 
 .nav-item:hover {
   transform: translateY(-5px);
@@ -172,9 +180,10 @@ export default {
 /* Dropdown styles */
 .dropdown-container {
   position: relative;
-  
+  border-radius: 10px;
   display: inline-block;
-  margin: 10px;
+  margin: 5px;
+ 
 }
 
 .custom-dropdown {
