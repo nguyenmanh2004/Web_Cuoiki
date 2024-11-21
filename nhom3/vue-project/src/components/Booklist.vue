@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       currentPage: 1,
-      booksPerPage: 10,
+      booksPerPage: 12,
       selectedBookId: null,
       searchQuery: {
         title: "",
