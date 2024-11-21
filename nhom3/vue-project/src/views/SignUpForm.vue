@@ -34,8 +34,8 @@
 
       <!-- Trường chọn quyền -->
       <select v-model="role" required class="role-select">
-        <option value="reader">Reader</option>
-        <option value="admin">Admin</option>
+        <option value="reader">Độc giả </option>
+        <option value="admin">Quản  Trị viên</option>
         <option value="librarian">Thủ thư</option>
       </select>
 
