@@ -13,9 +13,9 @@
         :class="{ 'selected': selectedBookId === book.id }" @click="selectBook(book.id)">
         <img :src="book.image" alt="Book image" class="book-image" />
         <h3>{{ book.title }}</h3>
-        <p>Tác giả: {{ book.author }}</p>
-        <p>Thể loại: {{ book.category }}</p>
-        <p>Năm XB: {{ book.year }}</p>
+        <p><b>Tác giả:</b> {{ book.author }}</p>
+        <p><b>Thể loại:</b> {{ book.category }}</p>
+        <p><b> Năm Xuất Bản:</b> {{ book.year }}</p>
         <p class="status-box" :class="getStatusClass(book.status)">{{ book.status }}</p>
       </div>
     </div>
@@ -258,7 +258,7 @@ export default {
 .book-image {
   
   width: 120px;
-  height: 150px;
+  height: 160px;
  
   margin-bottom: 10px;
   border-radius: 5px;

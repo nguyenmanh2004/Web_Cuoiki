@@ -218,7 +218,7 @@ export default {
 
 .book-image {
     width: 120px; /* Đặt kích thước cố định */
-    height: 120px; /* Đặt kích thước cố định */
+    height: 160px; /* Đặt kích thước cố định */
     object-fit: cover; /* Giữ tỉ lệ ảnh và tràn đầy khung */
     border-radius: 8px;
 }
