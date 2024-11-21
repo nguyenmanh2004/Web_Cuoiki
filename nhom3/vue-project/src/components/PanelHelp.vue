@@ -38,12 +38,18 @@
             description: "Sử dụng thanh tìm kiếm để nhập tên sách hoặc tác giả.",
           },
           {
-            title: "Bước 2: Quản Lý Sách",
-            description: "Vào mục 'Quản lý sách' để xem và chỉnh sửa danh sách của bạn.",
+            title: "Bước 2: Mượn sách",
+            description: "Click vào 1 ô sách , lúc nó sáng viền rồi bấm vào mượn sách.",
           },
           {
-            title: "Bước 3: Hoàn Tất",
-            description: "Nhấn 'OK' để bắt đầu khám phá thư viện của bạn!",
+            title: "Bước 3: Hoàn mượn sách",
+            description: "nhấn OK để hoàn tất mượn sách ",
+
+          },
+          {
+            title: "Lưu ý ",
+            description: "Bạn có 7 ngày để mượn sách , tuyệt đối đừng làm mất hay làm hỏng tránh mất tiền nhé !",
+            
           },
         ]
       };
@@ -91,6 +97,7 @@
     animation: slideIn 0.5s ease-out;
   }
   
+  /* Slide-in animation */
   @keyframes slideIn {
     from {
       opacity: 0;
@@ -103,9 +110,9 @@
   }
   
   .panel-image {
-    width: 100%; /* Chiều rộng 100% của khung chứa */
-    max-height: 200px; /* Giới hạn chiều cao */
-    object-fit: cover; /* Giữ tỉ lệ hình ảnh */
+    width: 100%; /* 100% width of the container */
+    max-height: 200px; /* Limit height */
+    object-fit: cover; /* Maintain image aspect ratio */
     border-radius: 8px;
     margin-bottom: 20px;
   }
@@ -147,6 +154,54 @@
   
   .ok-button:hover {
     background-color: #218838;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .panel {
+      width: 90%; /* Make panel take up 90% of screen width on smaller devices */
+      padding: 15px; /* Reduce padding */
+    }
+  
+    .panel-content h2 {
+      font-size: 1.2rem; /* Smaller heading size */
+    }
+  
+    .panel-content p {
+      font-size: 0.9rem; /* Smaller paragraph size */
+    }
+  
+    .panel-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .panel-buttons button {
+      margin: 5px 0; /* Add margin between buttons */
+      width: 100%; /* Make buttons fill width */
+    }
+  
+    .panel-image {
+      max-height: 150px; /* Limit image height on small screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .panel {
+      width: 95%; /* Panel width to be 95% on very small screens */
+    }
+  
+    .panel-image {
+      max-height: 120px; /* Reduce image height further */
+    }
+  
+    .panel-content h2 {
+      font-size: 1.1rem; /* Further reduce heading size */
+    }
+  
+    .panel-content p {
+      font-size: 0.8rem; /* Smaller paragraph font size */
+    }
   }
   </style>
   

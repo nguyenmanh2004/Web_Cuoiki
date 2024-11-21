@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- Tutorial Panel -->
-    <div v-if="isTutorialVisible" class="tutorial-overlay">
-      <div class="tutorial-box">
+    <div v-if="isTutorialVisible" class="tutorial-overlay animate__animated animate__fadeIn">
+      <div class="tutorial-box animate__animated animate__bounceIn">
         <!-- Character Image -->
         <div class="character-image">
           <img src="../assets/anime.gif" alt="Character" />
@@ -11,49 +11,72 @@
         <!-- Chatbox -->
         <div class="chat-box">
           <div class="chat-message">
-            <p>Chào mừng bạn đến với hệ thống quản lý sách! Đây là nơi bạn có thể thêm, sửa và xóa sách.</p>
-            <p>Nhấn vào nút dưới để bắt đầu.</p>
+            <p>Chào mừng bạn đến với thư viện sách ! Đây là nơi bạn có thể xem và mượn nhiều loại sách hay.</p>
+          <p>Nhấn vào nút dưới để bắt đầu.</p>
           </div>
         </div>
 
         <!-- Close Button -->
-        <button @click="startUsingApp" class="btn-start">Bắt đầu</button>
+        <button @click="startUsingApp" class="btn-start animate__animated animate__pulse">Bắt đầu</button>
       </div>
     </div>
 
     <!-- Main Content -->
     <Header />
-    <Sidebar @addBook="showAddBookPanel" @editBook="editBook" @deleteBook="deleteBook" @borrowBook="borrowBook" @filterBooks="filterBooks" />
+    <button class="toggle-sidebar-btn" @click="toggleSidebar">
+      <i :class="isSidebarVisible ? 'fas fa-times' : 'fas fa-bars'"></i> 
+      {{ isSidebarVisible ? 'Đóng Sidebar' : 'Mở Sidebar' }}
+    </button>
+    <Sidebar 
+      v-if="isSidebarVisible" 
+      @addBook="showAddBookPanel" 
+      @editBook="editBook" 
+      @deleteBook="deleteBook" 
+      @borrowBook="borrowBook" 
+      @filterBooks="filterBooks" 
+    />
+    <div v-if="!isSidebarVisible" class="sidebar-placeholder"></div>
 
     <!-- No Books Message -->
     <div v-if="books.length === 0" class="no-books">
       <p>Hiện không có sách trong danh sách.</p>
+      <img src="https://i.pinimg.com/originals/fb/77/1c/fb771c77975d0914afd5c382595d6ea6.gif " width="300px">
     </div>
 
     <!-- Book List -->
     <BookList v-else :books="books" @selectBook="selectBook" />
 
     <!-- Add Book Panel -->
-    <div v-if="isAddBookPanelVisible" class="overlay">
+    <div v-if="isAddBookPanelVisible" class="overlay animate__animated animate__fadeIn">
       <AddBook @addBook="addBook" @closePanel="closeAddBookPanel" />
     </div>
 
     <!-- Edit Book Panel -->
-    <div v-if="isEditBookPanelVisible" class="overlay">
+    <div v-if="isEditBookPanelVisible" class="overlay animate__animated animate__fadeIn">
       <EditBook :book="selectedBook" @saveEdit="saveEditBook" @closeEdit="closeEditBookPanel" />
     </div>
 
     <Footer />
 
     <!-- Modal Confirm -->
-    <div v-if="showModal" class="modal-overlay">
-      <div class="modal-content">
+    <div v-if="showModal" class="modal-overlay animate__animated animate__fadeIn">
+      <div class="modal-content animate__animated animate__zoomIn">
         <div v-if="modalMessage === 'Vui lòng chọn sách để sửa.' || modalMessage === 'Vui lòng chọn sách để xóa.' || modalMessage === 'Vui lòng chọn sách để mượn.'" class="modal-image">
           <img src="../assets/noti.gif" alt="Alert Image" />
         </div>
         <h3>{{ modalMessage }}</h3>
         <div class="modal-buttons">
           <button @click="confirmAction">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Panel -->
+    <div v-if="showSuccessPanel" class="modal-overlay animate__animated animate__fadeIn">
+      <div class="modal-content animate__animated animate__zoomIn">
+        <h3>{{ successMessage }}</h3>
+        <div class="modal-buttons">
+          <button @click="closeSuccessPanel">OK</button>
         </div>
       </div>
     </div>
@@ -73,6 +96,7 @@ export default {
   components: { Header, Footer, Sidebar, BookList, AddBook, EditBook },
   data() {
     return {
+      isSidebarVisible: true,
       books: [],
       allBooks: [],
       selectedBookId: null,
@@ -83,6 +107,8 @@ export default {
       isEditBookPanelVisible: false,
       selectedBook: null,
       isTutorialVisible: true,
+      showSuccessPanel: false,  // New property to show success panel
+      successMessage: "",       // Message for success panel
     };
   },
   mounted() {
@@ -103,6 +129,12 @@ export default {
     },
     closeAddBookPanel() {
       this.isAddBookPanelVisible = false;
+    },
+    closeEditBookPanel() {
+      this.isEditBookPanelVisible = false;
+    },
+    toggleSidebar() {
+      this.isSidebarVisible = !this.isSidebarVisible;
     },
     editBook() {
       if (this.selectedBookId !== null) {
@@ -130,7 +162,7 @@ export default {
       if (this.selectedBookId !== null) {
         const book = this.books.find(b => b.id === this.selectedBookId);
         if (book && book.status !== "Đã mượn") {
-          const currentDate = new Date().toLocaleDateString(); // Lấy ngày hiện tại
+          const currentDate = new Date().toLocaleDateString();
           this.modalMessage = `Bạn có chắc muốn mượn sách này? Ngày mượn: ${currentDate}`;
           this.actionToConfirm = this.confirmBorrowBook;
           this.showModal = true;
@@ -160,41 +192,35 @@ export default {
       alert("Sách đã được xóa!");
     },
     confirmBorrowBook() {
-  const bookIndex = this.books.findIndex(book => book.id === this.selectedBookId);
-  if (bookIndex !== -1) {
-    const currentDate = new Date(); // Lấy ngày hiện tại dưới dạng đối tượng Date
+      const bookIndex = this.books.findIndex(book => book.id === this.selectedBookId);
+      if (bookIndex !== -1) {
+        const currentDate = new Date();
+        this.books[bookIndex].status = `Tôi đã mượn ngày: ${currentDate.toLocaleDateString()}`;
+        this.books[bookIndex].registerDate = currentDate;
+        localStorage.setItem("books", JSON.stringify(this.books));
 
-    // Lưu ngày đăng ký vào thuộc tính mới của sách
-    this.books[bookIndex].status = `Tôi đã mượn ngày: ${currentDate.toLocaleDateString()}`;
-    this.books[bookIndex].registerDate = currentDate; // Thêm ngày đăng ký vào sách
-
-    // Lưu lại vào localStorage
-    localStorage.setItem("books", JSON.stringify(this.books));
-
-    alert("Sách đã được mượn!");
-  }
-
-  // Deselect book after confirming
-  this.selectedBookId = null;
-},
+        // Show the success panel with message
+        this.successMessage = "Cảm ơn bạn đã mượn sách! Chúc bạn một ngày vui vẻ.";
+        this.showSuccessPanel = true;
+      }
+      this.selectedBookId = null;
+    },
     filterBooks(status) {
       if (status === "all") {
         this.books = [...this.allBooks];
       } else {
-        this.books = this.allBooks.filter(book => book.status === status);
+        this.books = this.allBooks.filter(book => {
+          if (status === "new") return book.status === "Còn sách";
+          if (status === "borrowed") return book.status === "Đã mượn";
+          return book.status === "Hư hỏng";
+        });
       }
     },
     selectBook(bookId) {
       this.selectedBookId = bookId;
     },
-    addBook(newBook) {
-      const uniqueId = Date.now() + Math.floor(Math.random() * 1000);
-      newBook.id = uniqueId;
-      this.books.push(newBook);
-      this.allBooks.push(newBook);
-      localStorage.setItem("books", JSON.stringify(this.books));
-      alert("Sách đã được thêm!");
-      this.closeAddBookPanel();
+    closeSuccessPanel() {
+      this.showSuccessPanel = false;
     },
     startUsingApp() {
       this.isTutorialVisible = false;
@@ -205,7 +231,7 @@ export default {
       }
       this.showModal = false;
     }
-  },
+  }
 };
 </script>
 
@@ -215,60 +241,82 @@ export default {
 /* Styles for various components */
 
 /* Tutorial Panel */
+/* Tutorial Overlay */
 .tutorial-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.75); /* Darker background overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 20px; /* Add padding for mobile devices */
 }
 
+/* Tutorial Box */
 .tutorial-box {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
   text-align: center;
-  width: 350px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softer shadow */
+ 
+  position: relative; /* For positioning of child elements */
+}
+
+/* Character Image */
+.character-image {
+  margin-bottom: 20px;
 }
 
 .character-image img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Chatbox */
 .chat-box {
-  background-color: #f1f1f1;
+  background-color: #f5f5f5;
   padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+  margin-bottom: 25px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
 }
 
 .chat-message p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  color: #444; /* Slightly darker text */
 }
 
+/* Start Button */
 .btn-start {
-  padding: 10px 20px;
+  padding: 10px 25px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  
 }
 
 .btn-start:hover {
   background-color: #0056b3;
 }
+
+/* Fade-in Animation */
+
+
 
 /* Modal */
 .modal-overlay {

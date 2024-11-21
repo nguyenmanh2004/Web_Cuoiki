@@ -6,12 +6,9 @@
       <input type="text" v-model="searchQuery.author" placeholder="Tìm theo tác giả" @input="filterBooks" />
       <input type="text" v-model="searchQuery.category" placeholder="Tìm theo thể loại" @input="filterBooks" />
     </div>
-
+    
     <!-- Hiển thị sách theo dạng lưới -->
     <div class="book-grid">
-      <div v-if="filteredBooks.length === 0" class="no-results">
-        Không tìm thấy sách nào
-      </div>
       <div v-for="(book, index) in currentBooks" :key="book.id" class="book-item animate__animated animate__fadeInRight"
         :class="{ 'selected': selectedBookId === book.id }" @click="selectBook(book.id)">
         <img :src="book.image" alt="Book image" class="book-image" />
@@ -23,6 +20,12 @@
       </div>
     </div>
 
+    <div v-if="filteredBooks.length === 0" class="no-results">
+      <h1>Không tìm thấy sách</h1>
+      
+      <img src="../assets/anime.gif" width="300px" class="center-image" />
+    </div>
+
     <!-- Điều khiển phân trang -->
     <div class="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">Trước</button>
@@ -32,7 +35,6 @@
   </div>
 </template>
 
-
 <script>
 export default {
   name: "BookList",
@@ -41,14 +43,15 @@ export default {
   },
   data() {
     return {
-      currentPage: 1, // Trang hiện tại
-      booksPerPage: 10, // Số lượng sách mỗi trang
-      selectedBookId: null, // ID của sách được chọn
+      currentPage: 1,
+      booksPerPage: 10,
+      selectedBookId: null,
       searchQuery: {
         title: "",
         author: "",
         category: "",
       },
+      role: null, // User role from localStorage
     };
   },
   computed: {
@@ -61,11 +64,15 @@ export default {
       return this.filteredBooks.slice(start, end);
     },
     filteredBooks() {
+      // Filter books by search query and role
       return this.books.filter((book) => {
         const titleMatch = book.title.toLowerCase().includes(this.searchQuery.title.toLowerCase());
         const authorMatch = book.author.toLowerCase().includes(this.searchQuery.author.toLowerCase());
         const categoryMatch = book.category.toLowerCase().includes(this.searchQuery.category.toLowerCase());
-        return titleMatch && authorMatch && categoryMatch;
+
+        const roleMatch = this.role === "reader" || ["Đã mượn", "Hư hỏng", "Còn sách"].includes(book.status);
+
+        return titleMatch && authorMatch && categoryMatch && roleMatch;
       });
     },
   },
@@ -81,30 +88,31 @@ export default {
       }
     },
     selectBook(bookId) {
-      this.selectedBookId = bookId; // Đặt ID của sách được chọn
-      this.$emit("selectBook", bookId); // Truyền sự kiện lên component cha
+      this.selectedBookId = bookId;
+      this.$emit("selectBook", bookId);
     },
     filterBooks() {
-      this.currentPage = 1; // Reset trang khi có thay đổi tìm kiếm
+      this.currentPage = 1;
     },
     getStatusClass(status) {
       switch (status) {
-        case 'Đã mượn':
-          return 'status-borrowed';
-       
-          
-        case 'Hư hỏng':
-          return 'status-damaged';
-        case 'Còn sách':
-          return 'status-available';
+        case "Đã mượn":
+          return "status-borrowed";
+        case "Hư hỏng":
+          return "status-damaged";
+        case "Còn sách":
+          return "status-available";
         default:
-        return 'status-borrowed-by-me';
+          return "status-borrowed-by-me";
       }
     },
   },
+  mounted() {
+    // Retrieve role from localStorage
+    this.role = localStorage.getItem("role");
+  },
 };
 </script>
-
 
 
 
@@ -149,7 +157,7 @@ export default {
 
 /* Hiệu ứng khi người dùng bắt đầu nhập */
 .search-filter input:not(:placeholder-shown) {
-  background-color: #e9f7ef; /* Màu nền nhẹ khi có nội dung */
+  background-color: #def6e9; /* Màu nền nhẹ khi có nội dung */
 }
 
 /* Đảm bảo các ô tìm kiếm đều có cùng chiều cao */
@@ -159,7 +167,7 @@ export default {
 
 /* Giao diện danh sách sách */
 .book-list {
-  background: linear-gradient(to bottom, #f3f4f6, #e0f2fe);
+  background: white;
   margin-left: 220px;
   padding-left: 30px;
   max-height: calc(100vh - 100px);
@@ -186,12 +194,29 @@ export default {
 
 .book-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Số lượng cột cố định, bạn có thể thay đổi số lượng cột tùy theo màn hình */
+  grid-template-columns: repeat(4, 1fr); /* Mặc định có 4 cột */
   gap: 10px;
   flex-grow: 1;
 }
 
+/* Media query cho màn hình nhỏ */
+@media (max-width: 1024px) {
+  .book-grid {
+    grid-template-columns: repeat(3, 1fr); /* Nếu màn hình nhỏ hơn hoặc bằng 1024px, 3 cột */
+  }
+}
+
+@media (max-width: 768px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr); /* Nếu màn hình nhỏ hơn hoặc bằng 768px, 2 cột */
+  }
+}
+
+@media (max-width: 480px) {
+  .book-grid {
+    grid-template-columns: 1fr; /* Nếu màn hình nhỏ hơn hoặc bằng 480px, chỉ có 1 cột */
+  }
+}
 /* Từng mục sách */
 .book-item {
   margin: 15px;
@@ -252,6 +277,12 @@ export default {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+.center-image {
+  align-items: center; 
+  justify-content: center;
+  display: flex;
+  
 }
 
 .pagination button:hover {

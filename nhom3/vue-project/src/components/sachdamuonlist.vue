@@ -3,7 +3,9 @@
         <!-- Hiển thị sách theo dạng lưới -->
         <div class="book-grid">
             <div v-if="filteredBooks.length === 0" class="no-results">
-                Không tìm thấy sách nào
+               <h1> Không tìm thấy sách nào</h1>
+                <img src = "https://i.pinimg.com/originals/5c/37/6f/5c376f3c1d31024278361a8a217ed86e.gif " width="300px" alt="">
+                
             </div>
             <div
                 v-for="(book, index) in currentBooks"
@@ -25,6 +27,11 @@
                 </p>
                 <button @click.stop="returnBook(book)" class="return-book-btn">Trả sách</button>
             </div>
+        </div>
+
+        <!-- Thông điệp cảm ơn -->
+        <div v-if="thankYouMessage" class="thank-you-message">
+            Cảm ơn bạn đã đọc sách, hi vọng bạn cảm thấy vui khi đọc sách!
         </div>
 
         <!-- Điều khiển phân trang -->
@@ -51,6 +58,7 @@ export default {
             booksPerPage: 10,
             selectedBookId: null,
             defaultImage: "https://via.placeholder.com/120x180?text=No+Image",
+            thankYouMessage: false,  // Biến để kiểm tra thông điệp có hiện hay không
         };
     },
     computed: {
@@ -80,23 +88,21 @@ export default {
             this.$emit("selectBook", bookId);
         },
         returnBook(book) {
-    // Cập nhật trạng thái trong local state trước
-    book.status = "Còn sách";
-    
-    // Lưu lại danh sách sách vào localStorage sau khi cập nhật
-    const updatedBooks = this.books.map((b) => {
-        if (b.id === book.id) {
-            return { ...b, status: "Còn sách" };
-        }
-        return b;
-    });
-    
-    localStorage.setItem("books", JSON.stringify(updatedBooks));
-
-    // Gửi sự kiện lên component cha để đồng bộ
-    this.$emit("updateBooks", updatedBooks);
-}
-,
+            // Cập nhật trạng thái trong local state trước
+            book.status = "Còn sách";
+            // Lưu lại danh sách sách vào localStorage sau khi cập nhật
+            const updatedBooks = this.books.map((b) => {
+                if (b.id === book.id) {
+                    return { ...b, status: "Còn sách" };
+                }
+                return b;
+            });
+            localStorage.setItem("books", JSON.stringify(updatedBooks));
+            // Gửi sự kiện lên component cha để đồng bộ
+            this.$emit("updateBooks", updatedBooks);
+            // Hiển thị thông điệp cảm ơn
+            this.showThankYouMessage();
+        },
         loadBooks() {
             const storedBooks = localStorage.getItem("books");
             if (storedBooks) {
@@ -121,15 +127,18 @@ export default {
             const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
             return diffDays <= 2 ? "expiry-warning" : "";
         },
+        showThankYouMessage() {
+            this.thankYouMessage = true;
+            setTimeout(() => {
+                this.thankYouMessage = false; // Ẩn thông điệp sau 3 giây
+            }, 3000);
+        }
     },
 };
 </script>
 
-
-
 <style scoped>
 .book-list {
-    background: linear-gradient(to bottom, #f3f4f6, #e0f2fe);
     overflow-y: auto;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -145,7 +154,7 @@ export default {
 
 .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Flexible grid */
     gap: 15px;
     margin: 0 auto;
     max-width: 1200px;
@@ -162,7 +171,6 @@ export default {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-                   
 .return-book-btn {
     padding: 8px 16px;
     background: linear-gradient(45deg, #ff5f6d, #ffc371); /* Gradient background */
@@ -195,9 +203,9 @@ export default {
 }
 
 .book-image {
-    width: 100px;
-    height: 150px;
-    object-fit: cover;
+    width: 120px; /* Đặt kích thước cố định */
+    height: 120px; /* Đặt kích thước cố định */
+    object-fit: cover; /* Giữ tỉ lệ ảnh và tràn đầy khung */
     border-radius: 8px;
 }
 
@@ -231,21 +239,6 @@ export default {
 .expiry-warning {
     color: #e74c3c;
     font-weight: bold;
-    background-color: #f39c12;
-    border: 2px solid #e74c3c;
-    padding: 4px;
-    border-radius: 5px;
-}
-
-.pagination button {
-    padding: 4px 8px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 0 3px;
-    font-size: 12px;
 }
 
 .pagination {
@@ -259,20 +252,50 @@ export default {
     background: #fff;
     border-radius: 5px;
     position: fixed;
-    bottom: 0;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
 }
 
-.pagination span {
-    font-size: 12px;
+.pagination button {
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
 }
 
-.no-results {
-    font-size: 14px;
-    color: #555;
-    text-align: center;
-    margin-top: 20px;
+.pagination button:disabled {
+    background-color: #c0c0c0;
+    cursor: not-allowed;
+}
+
+.thank-you-message {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 </style>

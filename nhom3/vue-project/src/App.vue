@@ -17,7 +17,7 @@ export default {
     // Computed property to return class based on the current route
     backgroundClass() {
       // Nếu trang là Login hoặc SignUp thì không có nền trắng, ngược lại sẽ có
-      if (this.$route.name === 'Login' || this.$route.name === 'SignUp') {
+      if (this.$route.name === 'Login' || this.$route.name === 'SignUp' ||this.$route.name === 'info') {
         return 'login-signup-page'; // Nếu là Login hoặc SignUp thì không có nền trắng
       }
       return 'default-page'; // Nếu là các trang khác thì có nền trắng
@@ -25,13 +25,13 @@ export default {
   },
   mounted() {
     // Chỉ khởi tạo Three.js khi route là đăng nhập hoặc đăng ký
-    if (this.$route.name === 'Login' || this.$route.name === 'SignUp') {
+    if (this.$route.name === 'Login' || this.$route.name === 'SignUp' ||this.$route.name === 'info') {
       this.initThreeJS();
     }
 
     // Lắng nghe sự kiện thay đổi route để khởi tạo lại Three.js khi cần
     this.$router.afterEach((to) => {
-      if (to.name === 'Login' || to.name === 'SignUp') {
+      if (to.name === 'Login' || to.name === 'SignUp'||to.name === 'info' ) {
         this.initThreeJS();
       } else {
         this.destroyThreeJS(); // Dọn dẹp Three.js khi chuyển sang các trang khác
@@ -127,7 +127,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Để Three.js ở dưới cùng */
+  z-index: -10; /* Để Three.js ở dưới cùng */
 }
 
 .router-view {

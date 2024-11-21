@@ -80,7 +80,8 @@
         { name: 'Độc giả A', borrowed: 10, returned: 8, violation: 1, violationReason: 'Trả muộn' },
         { name: 'Độc giả B', borrowed: 5, returned: 4, violation: 0, violationReason: 'Không có' },
         { name: 'Độc giả C', borrowed: 8, returned: 7, violation: 2, violationReason: 'Mất sách' },
-        { name: 'Độc giả D', borrowed: 12, returned: 11, violation: 0, violationReason: 'Không có' }
+        { name: 'Độc giả D', borrowed: 12, returned: 11, violation: 0, violationReason: 'Không có' },
+        { name: 'Độc giả e', borrowed: 100, returned: 17, violation: 3, violationReason: 'Không có' }
       ]);
   
       const newReader = ref({
@@ -194,12 +195,17 @@
         });
   
         new Chart(violationCtx, {
-          type: 'pie',
-          data: violationData.value,
-          options: {
-            responsive: true
-          }
-        });
+    type: 'bar',  // Chuyển từ 'pie' sang 'bar'
+    data: violationData.value,
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
       });
   
       return {
@@ -239,8 +245,6 @@ h2, h3 {
   color: #333;
 }
 
-
-
 .add-reader-form {
   margin: 20px 0;
   padding: 20px;
@@ -279,10 +283,7 @@ h2, h3 {
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f9f9f9;
-  
 }
-
-
 
 table {
   width: 100%;
@@ -328,14 +329,15 @@ canvas {
   height: 100%;
 }
 
-
 .export-btn-container {
-  text-align: right; /* Align the button to the right */
-  margin-top: 20px;
+  position: absolute;
+  bottom: 40px;
+  right: 20px; /* Align the button to the bottom right */
+  text-align: center;
 }
 
 .export-btn-container button {
-  padding: 12px 25px;
+  padding: 10px 10px;
   background-color: #66BB6A;
   border: none;
   border-radius: 5px;
@@ -344,7 +346,6 @@ canvas {
   font-size: 16px;
   transition: background-color 0.3s;
 }
-
 
 .export-btn-container button:hover {
   background-color: #388E3C;
@@ -358,6 +359,35 @@ button {
 
 button:focus {
   outline: none;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .statistics-chart {
+    padding: 10px;
+  }
+
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart {
+    width: 250px;
+    height: 250px;
+  }
+
+  .add-reader-form input, .add-reader-form button {
+    font-size: 14px;
+  }
+
+  table th, table td {
+    font-size: 12px;
+  }
+
+  .export-btn-container button {
+    width: 100%;
+  }
 }
 
 /* Mobile Responsiveness */

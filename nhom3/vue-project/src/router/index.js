@@ -32,6 +32,11 @@ const router = createRouter({
       name: 'thongke',
       component: () => import('../views/thongke.vue'),  // Lazy load component AboutView
     },
+    {
+      path: '/info',  // Route cho trang "About"
+      name: 'info',
+      component: () => import('../views/thongtincanhan.vue'),  // Lazy load component AboutView
+    },
   ],
 })
 

@@ -97,130 +97,144 @@
   </script>
   
   <style scoped>
+.edit-book {
+  max-width: 800px; /* Giảm chiều rộng giống AddBook */
+  margin: 50px auto;
+  padding: 20px; /* Padding giống AddBook */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url('https://www.example.com/your-background-image.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 10;
+  overflow-y: auto; /* Cho phép cuộn nếu nội dung quá dài */
+  max-height: 90vh; /* Giới hạn chiều cao như AddBook */
+}
+
+.edit-book h2 {
+  text-align: center;
+  font-size: 24px; /* Kích thước font giống AddBook */
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  width: 48%; /* Hai cột bằng nhau */
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.input-wrapper i {
+  font-size: 18px;
+  color: #6200ea;
+  margin-right: 10px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 10px; /* Giảm padding giống AddBook */
+  border: none;
+  border-radius: 4px;
+  font-size: 14px; /* Giảm font-size như AddBook */
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #6200ea;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #3700b3;
+}
+
+button:focus {
+  outline: none;
+}
+
+.image-preview {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 80px; /* Kích thước ảnh xem trước nhỏ hơn */
+  max-height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.form-actions button {
+  width: 48%;
+}
+
+@media (max-width: 768px) {
   .edit-book {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url('https://www.example.com/your-background-image.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    z-index: 10;
+    padding: 15px; /* Giảm padding cho màn hình nhỏ */
+    max-width: 100%;
+    overflow-y: auto;
+    height: auto;
   }
-  
-  .edit-book h2 {
-    text-align: center;
-    font-size: 26px;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  
+
   .form-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 20px;
+    flex-direction: column;
   }
-  
+
   .form-group {
-    width: 48%; /* Two columns with equal width */
-  }
-  
-  .input-wrapper {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-  }
-  
-  .input-wrapper i {
-    font-size: 18px;
-    color: #6200ea;
-    margin-right: 10px;
-  }
-  
-  input,
-  select,
-  button {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-top: 5px;
-    box-sizing: border-box;
+    margin-bottom: 15px;
   }
-  
-  button {
-    background-color: #6200ea;
-    color: white;
-    padding: 12px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #3700b3;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  .image-preview {
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .image-preview img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  /* Style for action buttons */
+
   .form-actions {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
   }
-  
+
   .form-actions button {
-    width: 48%;
+    width: 100%;
+    margin-bottom: 10px;
   }
-  
-  @media (max-width: 768px) {
-    .form-row {
-      flex-direction: column;
-    }
-  
-    .form-group {
-      width: 100%;
-      margin-bottom: 20px;
-    }
-  
-    .form-actions {
-      flex-direction: column;
-    }
-  
-    .form-actions button {
-      width: 100%;
-      margin-bottom: 10px;
-    }
+
+  .edit-book {
+    overflow-y: auto;
+    max-height: 90vh; /* Cho phép cuộn khi nội dung quá dài */
   }
+}
+
   </style>
   

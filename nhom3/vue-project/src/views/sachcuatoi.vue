@@ -5,16 +5,17 @@
   
       <!-- Borrowed Books List -->
       <BooksList :books="books" />
+      <Footer/>
     </div>
   </template>
   
   <script>
   import Header from "../components/HeaderQuanlySach.vue";
   import BooksList from "../components/sachdamuonlist.vue";
-  
+  import Footer from "../components/FooterQuanlySach.vue";
   export default {
     name: "MainView1",
-    components: { Header, BooksList },
+    components: { Header, BooksList ,Footer},
     data() {
       return {
         books: []  // Khởi tạo mảng sách là rỗng

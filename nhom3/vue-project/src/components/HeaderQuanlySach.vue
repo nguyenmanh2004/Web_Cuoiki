@@ -1,102 +1,117 @@
 <template>
   <header class="header">
     <div class="header-container">
+      <!-- Logo -->
       <div class="logo">
         <i class="fas fa-book"></i>
-        <h1>Thư Viện Sách</h1>
+        <h1>BookHavent</h1>
       </div>
+
+      <!-- Navigation -->
       <nav class="header-nav">
-        <!-- Trang Chủ Button -->
         <button class="nav-item" @click="goHome">
           <i class="fas fa-home"></i> Trang Chủ
         </button>
-        <!-- Hướng Dẫn Button -->
-        <button class="nav-item" @click="toggleHelpPanel">
+
+        <!-- Nút "Hướng Dẫn" chỉ hiển thị cho role 'reader' -->
+        <button v-if="userRole === 'reader'" class="nav-item" @click="toggleHelpPanel">
           <i class="fas fa-info-circle"></i> Hướng Dẫn
         </button>
-        <!-- Sách Của Tôi Button -->
-        <button class="nav-item" @click="viewMyBooks">
+
+        <!-- Nút "Sách của tôi" chỉ hiển thị cho role 'reader' -->
+        <button v-if="userRole === 'reader'" class="nav-item" @click="viewMyBooks">
           <i class="fas fa-bookmark"></i> Sách của tôi
         </button>
-        <button class="nav-item" @click="thongke">
-          <i class="fa-regular fa-calendar"></i> Thống Kê
+
+        <!-- Nút "Thống Kê" chỉ hiển thị cho role 'admin' và 'librarian' -->
+        <button v-if="userRole === 'admin' || userRole === 'librarian'" class="nav-item" @click="thongke">
+          <i class="fas fa-chart-line"></i> Thống Kê
         </button>
-        <div class="user-menu">
-          <button class="nav-item user-name" @click="toggleMenu">
-            <i class="fas fa-user"></i> {{ loggedInUsername || 'Tài Khoản' }}
+
+        <!-- Hiển thị ảnh đại diện người dùng -->
+        <img v-if="profileImage" :src="profileImage" alt="Profile Image" class="profile-image"/> 
+
+        <!-- Dropdown menu -->
+        <div class="dropdown-container">
+          <button @click="toggleDropdown">
+            {{ loggedInUsername || 'Menu' }}
           </button>
-          <div v-if="menuVisible" class="dropdown-menu">
-            <p><strong>Tên:</strong> {{ loggedInUsername }}</p>
-            <p><strong>Email:</strong> {{ loggedInEmail }}</p>
-            <button @click="logout" class="logout-button">Đăng Xuất</button>
+          <div v-show="dropdownVisible" class="custom-dropdown">
+            <button @click="goProfile">Thông Tin Cá Nhân</button>
+            <button @click="logout">Đăng Xuất</button>
           </div>
         </div>
       </nav>
     </div>
-    <!-- Passing the visibility state to the PanelHelp component -->
+
+    <!-- Hướng dẫn Panel -->
     <PanelHelp v-if="isHelpPanelVisible" @close="closeHelpPanel" :isVisible="isHelpPanelVisible" />
   </header>
 </template>
-
 <script>
 import PanelHelp from "./PanelHelp.vue";
 
 export default {
-  name: "Header",
   components: {
     PanelHelp,
   },
   data() {
     return {
-      isHelpPanelVisible: false, // Điều khiển hiển thị PanelHelp
-      loggedInUsername: localStorage.getItem("username"),
-      loggedInEmail: localStorage.getItem("email"),
-      menuVisible: false,
+      isHelpPanelVisible: false,  // Ẩn/hiển thị panel hướng dẫn
+      dropdownVisible: false,     // Ẩn/hiển thị dropdown
+      loggedInUsername: localStorage.getItem("username") ,  // Lấy tên người dùng
+      loggedInEmail: localStorage.getItem("email"),      // Lấy email người dùng
+      profileImage: localStorage.getItem("profileImage") || 'https://i.pinimg.com/originals/ed/53/a0/ed53a0129c36eea6d1c650484b27b726.gif', // Lấy hình đại diện người dùng
+      userRole: localStorage.getItem("role"), // Lấy vai trò người dùng từ localStorage
     };
   },
   methods: {
-    toggleMenu() {
-      this.menuVisible = !this.menuVisible;
-    },
-    logout() {
-      localStorage.removeItem("username");
-      localStorage.removeItem("email");
-      localStorage.removeItem("role");
-
-      this.loggedInUsername = null;
-      this.loggedInEmail = null;
-
-      alert("Bạn đã đăng xuất thành công.");
-      this.$router.push({ name: "Login" });
+    toggleDropdown() {
+      this.dropdownVisible = !this.dropdownVisible;  // Chuyển trạng thái hiển thị dropdown
     },
     toggleHelpPanel() {
-      this.isHelpPanelVisible = !this.isHelpPanelVisible;
+      this.isHelpPanelVisible = !this.isHelpPanelVisible;  // Mở/đóng panel hướng dẫn
     },
     closeHelpPanel() {
-      this.isHelpPanelVisible = false; // Đóng panel khi người dùng hoàn tất hướng dẫn
+      this.isHelpPanelVisible = false;  // Đóng panel khi người dùng hoàn tất hướng dẫn
     },
-    // Redirect to the home page (Trang Chủ)
+    logout() {
+      // Thực hiện đăng xuất
+      localStorage.removeItem("username");
+      localStorage.removeItem("email");
+      localStorage.removeItem("profileImage");
+      localStorage.removeItem("role"); // Xóa vai trò khỏi localStorage
+     
+      alert("Bạn đã đăng xuất thành công!");
+      this.$router.push({ path: "/login" });
+    },
+    goProfile() {
+      // Chuyển hướng đến trang thông tin cá nhân
+      this.$router.push({ path: "/info" });
+    },
     goHome() {
-      this.$router.push({ path: "/Trangquanlisach" }) // Redirect to Trangquanlysach.vue
+      // Chuyển hướng đến trang chủ
+      this.$router.push({ path: "/Trangquanlisach" });
     },
-    // Redirect to the My Books page (Sách của tôi)
     viewMyBooks() {
-      this.$router.push({ path: "/sachcuatoi" }) // Redirect to sachcuatoi.vue
+      // Chuyển hướng đến trang sách của tôi
+      this.$router.push({ path: "/sachcuatoi" });
     },
     thongke() {
-      this.$router.push({ path: "/thongke" }) // Redirect to sachcuatoi.vue
-    }
+      // Chuyển hướng đến trang thống kê (dành cho admin và librarian)
+      this.$router.push({ path: "/thongke" });
+    },
   },
 };
 </script>
-
 <style scoped>
+/* Container Header */
 .header {
-  background-color:#30618C;  /* Gradient xanh dương */
+  background-color: #30618C;
   color: white;
   padding: 10px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -125,8 +140,9 @@ export default {
   gap: 15px;
 }
 
+/* Button styles */
 .nav-item {
-  background: #ff4081; /* Set a contrasting color for the button background */
+  background: #ff4081;
   border: none;
   color: white;
   font-size: 1rem;
@@ -134,55 +150,124 @@ export default {
   align-items: center;
   gap: 5px;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition: all 0.3s;
   padding: 8px 15px;
   border-radius: 25px;
 }
 
-/* Floating effect on hover */
 .nav-item:hover {
-  transform: translateY(-5px); /* Button floats up */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Add a shadow when floating */
-  background-color: #f50057; /* Darken the button on hover */
-  color: #ffffff; /* Keep text white */
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f50057;
 }
 
-.user-menu {
+/* Profile Image */
+.profile-image {
+  width: 40px;   /* Adjust size of the image */
+  height: 40px;  /* Adjust size of the image */
+  border-radius: 50%;
+  margin-left: 8px;
+}
+
+/* Dropdown styles */
+.dropdown-container {
   position: relative;
+  
+  display: inline-block;
+  margin: 10px;
 }
 
-.dropdown-menu {
+.custom-dropdown {
   position: absolute;
   top: 100%;
-  right: 0;
-  background-color: white;
-  color: black;
-  padding: 10px;
+  width: 180px;
+  background: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  z-index: 1000;
-  width: 200px;
+  overflow: hidden;
+  right:20px;
+  animation: slideDown 0.3s ease-in-out;
 }
 
-.dropdown-menu p {
-  margin: 0 0 10px;
-  font-size: 14px;
+.custom-dropdown button {
+  display: block;
+  padding: 10px 15px;
   color: #333;
+  text-decoration: none;
+  transition: background 0.3s;
+  
+  text-align: center; /* Căn giữa tên nếu nó ngắn */
+}
+.dropdown-container button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
 }
 
-.logout-button {
-  background-color: #e53935;
-  border: none;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  width: 100%;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.custom-dropdown a:hover {
+  background: #f5f5f5;
 }
 
-.logout-button:hover {
-  background-color: #b71c1c;
+/* Dropdown animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    padding: 10px 15px;
+  }
+
+  .logo h1 {
+    font-size: 1.3rem;
+  }
+
+  .header-nav {
+    gap: 10px;
+  }
+
+  .nav-item {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  .nav-item i {
+    font-size: 1rem;
+  }
+
+  .custom-dropdown {
+    width: 100%;
+  }
+
+  .dropdown-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo h1 {
+    font-size: 1.1rem;
+  }
+
+  .header-nav {
+    gap: 8px;
+  }
+
+  .nav-item {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .nav-item i {
+    font-size: 0.9rem;
+  }
 }
 </style>

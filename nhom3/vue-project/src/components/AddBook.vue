@@ -125,9 +125,9 @@ export default {
 
 <style scoped>
 .add-book {
-  max-width: 1000px;
+  max-width: 800px; /* Reduced width to make the form slightly smaller */
   margin: 50px auto;
-  padding: 30px;
+  padding: 20px; /* Reduced padding for smaller form size */
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -139,13 +139,15 @@ export default {
   background-position: center;
   position: relative;
   z-index: 10;
+  overflow-y: auto; /* Enables scrolling if content exceeds available space */
+  max-height: 90vh; /* Limit form height to fit in viewport */
 }
 
 .add-book h2 {
   text-align: center;
-  font-size: 26px;
+  font-size: 24px; /* Slightly smaller font size */
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
   font-weight: 600;
 }
 
@@ -153,7 +155,7 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .form-group {
@@ -178,10 +180,10 @@ input,
 select,
 button {
   width: 100%;
-  padding: 12px;
+  padding: 10px; /* Reduced padding for smaller inputs */
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px; /* Reduced font size */
   margin-top: 5px;
   box-sizing: border-box;
 }
@@ -213,8 +215,8 @@ button:focus {
 }
 
 .image-preview img {
-  max-width: 100px;
-  max-height: 100px;
+  max-width: 80px; /* Smaller preview image */
+  max-height: 80px;
   object-fit: cover;
   border-radius: 5px;
 }
@@ -231,13 +233,20 @@ button:focus {
 }
 
 @media (max-width: 768px) {
+  .add-book {
+    padding: 15px; /* Reduced padding for smaller screens */
+    max-width: 100%;
+    overflow-y: auto;
+    height: auto;
+  }
+
   .form-row {
     flex-direction: column;
   }
 
   .form-group {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 
   .form-actions {
@@ -248,6 +257,13 @@ button:focus {
     width: 100%;
     margin-bottom: 10px;
   }
+  
+  /* Added scroll view for responsive layout */
+  .add-book {
+    overflow-y: auto;
+    max-height: 90vh; /* Allow the form to scroll when content is too long */
+  }
 }
+
 
 </style>

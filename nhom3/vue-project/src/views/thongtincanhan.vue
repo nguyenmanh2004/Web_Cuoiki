@@ -1,24 +1,24 @@
 <template>
     <div >
-        <Header/>
-      <StatisticsChart />
-    
-     <Footer/>
+       <Header />
+      <info />
+     <Footer />
     </div>
   </template>
   
   <script>
-  import StatisticsChart from "../components/StatisticChart.vue"
+  
+  import info from "../components/info.vue"
   import Header from "../components/HeaderQuanlySach.vue";
   import Footer from "../components/FooterQuanlySach.vue";
   
+
   export default {
-    name: 'thongke',
+    name: 'thongtincanhan',
     components: {
-      StatisticsChart,
+      info,
       Header,
       Footer,
-      
     }
   };
   </script>

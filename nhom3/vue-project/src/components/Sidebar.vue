@@ -1,30 +1,38 @@
 <template>
   <aside class="sidebar">
     <h2>Quản lý sách</h2>
-    <button @click="showAddForm">
+
+    <!-- Only show to admin and librarian -->
+    <button v-if="isAdminOrLibrarian" @click="showAddForm">
       <i class="fas fa-plus-circle"></i> Thêm Sách
     </button>
-    <button @click="showEditForm">
+    <button v-if="isAdminOrLibrarian" @click="showEditForm">
       <i class="fas fa-edit"></i> Sửa Sách
     </button>
-    <button @click="deleteBook">
+    <button v-if="isAdminOrLibrarian" @click="deleteBook">
       <i class="fas fa-trash-alt"></i> Xóa Sách
     </button>
-    <button @click="borrowBook">
+
+    <!-- Only show to readers -->
+    <button v-if="isReader" @click="borrowBook">
       <i class="fa-regular fa-book"></i> Mượn sách
     </button>
+
+    <!-- Visible to all users -->
     <button @click="toggleFilterOptions">
       <i class="fas fa-list"></i> Phân Loại Sách
       <i :class="isFilterVisible ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
     </button>
+    
     <ul v-if="isFilterVisible" class="filter-options">
       <li @click="filterBooks('all')">Tất cả</li>
       <li @click="filterBooks('new')">Còn sách</li>
       <li @click="filterBooks('borrowed')">Đã mượn</li>
       <li @click="filterBooks('damaged')">Hư hỏng</li>
     </ul>
-    <div class="sidebar-image">
-      <img src="../assets/sidebar.gif" alt="Sidebar Image" />
+    
+    <div v-if="!isFilterVisible" class="sidebar-image">
+      <img src="https://i.pinimg.com/originals/9a/95/c8/9a95c862249406339f4bb5c0b3cb0b78.gif" alt="Library Image" />
     </div>
   </aside>
 </template>
@@ -33,42 +41,47 @@
 export default {
   data() {
     return {
-      isFilterVisible: false,  // To toggle the filter options
+      isFilterVisible: false, // To toggle the filter options
+      role: null, // User role to determine permissions
     };
   },
+  computed: {
+    // Computed properties to check user role
+    isAdminOrLibrarian() {
+      return this.role === "admin" || this.role === "librarian";
+    },
+    isReader() {
+      return this.role === "reader";
+    },
+  },
   methods: {
-    // Show the form for adding a new book
     showAddForm() {
       this.$emit("addBook");
     },
-    
-    // Show the form for editing a selected book
     showEditForm() {
       this.$emit("editBook");
     },
-
-    // Trigger the delete book functionality
     deleteBook() {
       this.$emit("deleteBook");
     },
-
-    // Mark the book as borrowed
     borrowBook() {
       this.$emit("borrowBook");
     },
-
-    // Toggle the visibility of filter options
     toggleFilterOptions() {
       this.isFilterVisible = !this.isFilterVisible;
     },
-
-    // Emit filter change based on the selected status
     filterBooks(status) {
       this.$emit("filterBooks", status);
-    }
+    },
+  },
+  mounted() {
+    // Retrieve role from local storage
+    this.role = localStorage.getItem("role");
   },
 };
 </script>
+
+
 
 <style>
 .sidebar {
@@ -77,9 +90,11 @@ export default {
   color: white; /* White text for contrast */
   padding: 20px;
   border-right: 1px solid #004080;
-  position: fixed;
+ 
   height: 100%;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  height:485px;
+  position:absolute;
 }
 
 .sidebar h2 {
@@ -128,14 +143,14 @@ export default {
 
 .filter-options {
   list-style: none;
-  padding: 10px 0;
+  padding: 5px 0;
   margin: 0;
 }
 
 .filter-options li {
   background: #e8f4fc;
   color: #004080;
-  padding: 10px;
+  padding: 1px;
   border-radius: 5px;
   margin: 5px 0;
   cursor: pointer;
@@ -155,7 +170,7 @@ export default {
 .sidebar-image {
   margin-top: auto; /* Push the image to the bottom */
   text-align: center;
-  padding-top: 20px; /* Space between the filter section and image */
+  padding-top: 15px; /* Space between the filter section and image */
 }
 
 .sidebar-image img {
