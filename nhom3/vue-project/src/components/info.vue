@@ -1,5 +1,5 @@
 <template>
-    <div class="profile-container">
+    <div class="profile-container animate__animated animate__flipInY ">
       <div class="form-container">
         <!-- Hình ảnh và phần thay đổi ảnh -->
         <div class="profile-image-section">
@@ -75,7 +75,7 @@
         email: localStorage.getItem("email"),
         role: localStorage.getItem("role"),
         username: localStorage.getItem("username") || "Người dùng", // Default name if not available
-        profileImage: localStorage.getItem("profileImage") || "https://i.pinimg.com/originals/ed/53/a0/ed53a0129c36eea6d1c650484b27b726.gif", // Default image if not available
+        profileImage: localStorage.getItem("profileImage") || "https://file.lhu.edu.vn/me/avatar/1220013830.jpg", // Default image if not available
         userInfo: {
           class: "Lớp 12A1",
           id: "123456789",
@@ -105,8 +105,8 @@
       localStorage.setItem("profileImage", reader.result);
     };
     reader.readAsDataURL(file);
+    
   }
-
       },
   
       // Start editing personal info
@@ -133,6 +133,7 @@
         if (storedUserInfo) {
           this.userInfo = JSON.parse(storedUserInfo);
         }
+      
       },
   
       // Method to get the readable role name

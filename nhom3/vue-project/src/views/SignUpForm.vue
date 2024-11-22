@@ -1,9 +1,9 @@
 <template>
-  <div class="signup-container">
+  <div class="signup-container animate__animated animate__bounce animate__ animate__slideInDown">
     <!-- Image added here -->
     <img src="https://i.pinimg.com/originals/ae/c0/b0/aec0b0923bfd5ac90ee73b58d8430511.gif" alt="Pointer Character" class="pointer-image" />
     
-    <h1 >Đăng kí</h1>
+    <h1 ref="signupHeading">Đăng kí</h1>
 
     <form @submit.prevent="handleSignUp">
       <input
@@ -51,9 +51,9 @@
     </form>
   </div>
 </template>
-
-
 <script>
+import anime from 'animejs';
+
 export default {
   name: "SignUpForm",
   data() {
@@ -66,10 +66,10 @@ export default {
       emailError: false,
       passwordError: false,
       roleCodeError: false,
-    
       errorMessage: "",
     };
   },
+  
   methods: {
     validateForm() {
       this.usernameError = !this.username.trim();
@@ -105,9 +105,19 @@ export default {
       this.$router.push("/login");
     },
   },
+
+  mounted() {
+    anime({
+    targets: '.signup-container input',  // Tất cả input trong form
+    translateY: [20, 0],                 // Di chuyển các input từ dưới lên
+    opacity: [0, 1],                     // Từ mờ đến rõ
+    delay: anime.stagger(100),           // Delay giữa các input
+    duration: 1000,                      // Thời gian hoạt ảnh
+    easing: 'easeOutQuad',               // Easing smooth
+  });
+  }
 };
 </script>
-
 <style scoped>
 .pointer-image {
   width: 100px;          /* Adjust size as needed */

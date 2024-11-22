@@ -5,10 +5,14 @@ const router = createRouter({
 
     {
       path: '/',  // Route cho trang đăng ký
+      name: 'Trangquanlysach1',
+      component: () => import('../views/Trangquanlysach.vue'),  // Lazy load component SignUpForm
+    },
+    {
+      path: '/SignUp',  // Route cho trang đăng ký
       name: 'SignUp',
       component: () => import('../views/SignUpForm.vue'),  // Lazy load component SignUpForm
     },
-
     {
       path: '/login',  // Route cho trang đăng nhập
       name: 'Login',

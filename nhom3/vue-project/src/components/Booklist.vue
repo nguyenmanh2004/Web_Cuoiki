@@ -9,7 +9,7 @@
     
     <!-- Hiển thị sách theo dạng lưới -->
     <div class="book-grid">
-      <div v-for="(book, index) in currentBooks" :key="book.id" class="book-item animate__animated animate__fadeInRight"
+      <div v-for="(book, index) in currentBooks" :key="book.id" class="book-item animate__animated animate__backInRight"
         :class="{ 'selected': selectedBookId === book.id }" @click="selectBook(book.id)">
         <img :src="book.image" alt="Book image" class="book-image" />
         <h3>{{ book.title }}</h3>
@@ -21,9 +21,9 @@
     </div>
 
     <div v-if="filteredBooks.length === 0" class="no-results">
-      <h1>Không tìm thấy sách</h1>
+      <h1>Không tìm thấy sách hoặc chưa có sách bạn tìm kiếm trong thư viện </h1>
       
-      <img src="../assets/anime.gif" width="300px" class="center-image" />
+      <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTBsNXlydW8wZGpleTFpcTkwd2MzZm93NmNjbW9weTJ3OTNudjNnNSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/OPU6wzx8JrHna/200.webp" width="300px" class="center-image" />
     </div>
 
     <!-- Điều khiển phân trang -->
@@ -305,7 +305,7 @@ export default {
   align-items: center; 
   justify-content: center;
   display: flex;
-  
+  right:500px;
 }
 
 .pagination button:hover {

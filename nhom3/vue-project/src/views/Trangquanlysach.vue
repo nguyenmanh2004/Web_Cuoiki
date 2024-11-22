@@ -5,7 +5,7 @@
       <div class="tutorial-box animate__animated animate__bounceIn">
         <!-- Character Image -->
         <div class="character-image">
-          <img src="../assets/anime.gif" alt="Character" />
+          <img src="https://i.pinimg.com/originals/da/61/a6/da61a6ec4195e676dfa412fa82afc78f.gif" alt="Character" />
         </div>
 
         <!-- Chatbox -->
@@ -122,7 +122,7 @@ export default {
         { id: 94, title: "Em Học Lập Trình Scratch", author: "Mathew Hingland", category: "Sách Lập Trình", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/fc/80/3b/fc803ba4855018e00a49111ab30287f2.jpg" },
         { id: 95, title: "Clean Code", author: "Robert Martin", category: "Sách Lập Trình", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/474x/bd/17/20/bd1720e504efe298254fbb9725571084.jpg" },
         { id: 96, title: "Học Như siêu nhân tư duy", author: "Ian Gilbert", category: "Sách Hướng dẫn", year: 2021, status: "Còn sách", image: "https://i.pinimg.com/736x/2d/2f/93/2d2f93e80f602c23582947b3b4103bf1.jpg" },
-        { id: 96, title: "Danh Nhân Thế Giới - LINCOLN", author: "Publishing Company", category: "Truyện danh nhân", year: 2023, status: "Hư hỏng", image: "https://i.pinimg.com/736x/49/27/4f/49274fa6790c8c976faf9c2575b50469.jpg" },
+        { id: 97, title: "Danh Nhân Thế Giới - LINCOLN", author: "Publishing Company", category: "Truyện danh nhân", year: 2023, status: "Hư hỏng", image: "https://i.pinimg.com/736x/49/27/4f/49274fa6790c8c976faf9c2575b50469.jpg" },
         { id: 30, title: "Dragon Ball Super tập 15", author: "Akira Toriyama", category: "Truyện Manga", year: 2023, status: "Đã mượn", image: "https://i.pinimg.com/enabled_lo_mid/736x/60/1b/90/601b90e64e522854e663d5a31d8b1ba0.jpg" },
         { id: 6, title: "Đắc Nhân Tâm", author: "Dale Carnegie", category: "Phát triển bản thân", year: 1936, status: "Còn sách", image: "https://i.pinimg.com/736x/1c/22/df/1c22df7132ad8f1358688b23831e9eaf.jpg" },
         { id: 7, title: "Bóc Phốt Tài Chính", author: "Nguyễn Trọng Nhân", category: "Tài chính", year: 2021, status: "Còn sách", image: "https://i.pinimg.com/236x/b5/4d/3a/b54d3a23fd5847ccb59632aef5d02be3.jpg" },
@@ -358,7 +358,7 @@ export default {
 
 /* Tutorial Box */
 .tutorial-box {
-  background-color: #ffffff;
+  background-color: #8dd2ea;
   padding: 25px;
   border-radius: 12px;
   text-align: center;
@@ -384,7 +384,8 @@ export default {
 
 /* Chatbox */
 .chat-box {
-  background-color: #f5f5f5;
+  background-color: #c6f1f4;
+  font-weight: bold;
   padding: 15px;
   border-radius: 8px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);

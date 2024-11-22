@@ -1,6 +1,6 @@
 <template>
-    <div class="panel-help" v-if="isVisible">
-      <div class="panel">
+    <div class="panel-help " v-if="isVisible">
+      <div class="panel animate__animated animate__backInDown">
         <!-- Hình ảnh hiển thị chung -->
         <img src="https://i.pinimg.com/originals/c0/aa/d5/c0aad578f9c579bc72641644bc58ba01.gif" alt="Guide Image" class="panel-image" />
         
@@ -99,21 +99,11 @@
     border: 2px solid #4a90e2; /* Viền màu xanh */
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Tăng cường bóng đổ */
 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.5s ease-out;
+    
+  
   }
   
-  /* Slide-in animation */
-  @keyframes slideIn {
-    from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  }
+ 
   
   .panel-image {
     width: 100%; /* 100% width of the container */
@@ -149,7 +139,7 @@
     cursor: pointer;
    
     background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient nút */
-  transition: background 0.3s, transform 0.2s; 
+
   }
   
   .panel-buttons button:hover {

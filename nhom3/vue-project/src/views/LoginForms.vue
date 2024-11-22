@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container">
+  <div class="login-container animate__animated animate__bounce animate__ animated__slideInDown" >
     <!-- Image added here -->
     <img src="https://i.pinimg.com/enabled_lo_mid/474x/39/4d/00/394d00e713d6b3a4a928651deaccdfc0.jpg" alt="Pointer Character" class="pointer-image" />
     
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import anime from 'animejs/lib/anime.es.js';
 export default {
   name: "LoginForm",
   data() {
@@ -57,6 +58,17 @@ export default {
       loginError: false, // To show or hide the login error message
     };
   },
+  mounted() {
+    // Anime.js animation for input fields
+    anime({
+      targets: '.login-container input',  // Select all input fields in the form
+      translateY: [20, 0],                 // Move inputs from below upwards
+      opacity: [0, 1],                     // From transparent to opaque
+      delay: anime.stagger(100),           // Delay between each input
+      duration: 1000,                      // Duration of the animation
+      easing: 'easeOutQuad',               // Smooth easing for the animation
+    });
+  },
   methods: {
     validateForm() {
       this.emailError = !/\S+@\S+\.\S+/.test(this.email); // Kiểm tra email hợp lệ
@@ -66,29 +78,34 @@ export default {
       return !this.emailError && !this.passwordError && !this.userCodeError;
     },
     handleLogin() {
-      // Clear login error before validating again
-      this.loginError = false;
+  // Clear previous login error before validating again
+  this.loginError = false;
 
-      if (!this.validateForm()) return; // Prevent login if form is invalid
+  if (!this.validateForm()) {
+    // If the form validation fails, show an alert
+    alert("Thông tin bạn nhập chưa chính xác. Vui lòng kiểm tra lại.");
+    return; // Prevent login if form is invalid
+  }
 
-      const storedEmail = localStorage.getItem("email");
-      const storedPassword = localStorage.getItem("password");
-      const storedUserCode = localStorage.getItem("manguoidung");
-      console.log('Stored User Code:', storedUserCode);
+  const storedEmail = localStorage.getItem("email");
+  const storedPassword = localStorage.getItem("password");
+  const storedUserCode = localStorage.getItem("manguoidung");
 
-      // Kiểm tra xem email, mật khẩu và mã số có khớp không
-      if (storedEmail === this.email && storedPassword === this.password) {
-        if (storedUserCode === this.userCode) {
-          alert("Đăng nhập thành công!");
-          this.$router.push('/Trangquanlisach'); // Chuyển đến trang sau khi đăng nhập thành công
-        } else {
-          this.loginError = true; // Mã số không đúng
-          alert("Đăng nhập ko thành công!");
-        }
-      } else {
-        this.loginError = true; // Thông tin đăng nhập không đúng
-      }
-    },
+  // Kiểm tra xem email, mật khẩu và mã số có khớp không
+  if (storedEmail === this.email && storedPassword === this.password) {
+    if (storedUserCode === this.userCode) {
+      alert("Đăng nhập thành công!");
+      this.$router.push('/Trangquanlisach'); // Navigate to the next page after successful login
+    } else {
+      this.loginError = true; // Mã số không đúng
+      alert("Mã số người dùng không chính xác.");
+    }
+  } else {
+    this.loginError = true; // Thông tin đăng nhập không đúng
+    alert("Thông tin đăng nhập không chính xác. Vui lòng kiểm tra lại.");
+  }
+},
+
     goToSignUp() {
       this.$router.push({ name: "SignUp" }); // Chuyển đến trang đăng ký
     },
