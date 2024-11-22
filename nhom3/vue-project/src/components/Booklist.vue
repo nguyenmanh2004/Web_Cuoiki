@@ -249,7 +249,7 @@ export default {
   
 }
 .book-item h3 {
-  font-size: clamp(14px, 4vw, 18px); /* Điều chỉnh kích thước chữ tự động từ 14px đến 18px tùy thuộc vào chiều rộng */
+  font-size: clamp(14px, 4vh, 18px); /* Điều chỉnh kích thước chữ tự động từ 14px đến 18px tùy thuộc vào chiều rộng */
   width: 100%; /* Đảm bảo tiêu đề chiếm toàn bộ chiều rộng của phần tử chứa */
   height: 60px; /* Đặt chiều cao cố định cho tiêu đề */
   line-height: 1.4; /* Điều chỉnh chiều cao dòng cho dễ đọc */
