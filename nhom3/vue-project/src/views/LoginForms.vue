@@ -1,5 +1,8 @@
 <template>
   <div class="login-container">
+    <!-- Image added here -->
+    <img src="https://i.pinimg.com/enabled_lo_mid/474x/39/4d/00/394d00e713d6b3a4a928651deaccdfc0.jpg" alt="Pointer Character" class="pointer-image" />
+    
     <h1>Login</h1>
     <form @submit.prevent="handleLogin">
       <input
@@ -20,14 +23,17 @@
       />
       <p v-if="passwordError" class="error-text">Mật khẩu phải có ít nhất 8 ký tự.</p>
 
-      <div class="role-selection">
-        <label for="role">Phân quyền người dùng:</label>
-        <select v-model="role" id="role" required>
-          <option value="reader">Độc giả</option>
-          <option value="librarian">Thủ thư</option>
-          <option value="admin">Quản trị viên</option>
-        </select>
-      </div>
+      <!-- Thêm trường mã số người dùng -->
+      <input
+        type="text"
+        placeholder="Nhập mã số nhà trường cấp"
+        v-model="userCode"
+        required
+        :class="{'input-error': userCodeError}"
+      />
+      <p v-if="userCodeError" class="error-text">Mã số không hợp lệ.</p>
+
+     
 
       <div class="button-container">
         <button type="submit" class="confirm-button">Confirm</button>
@@ -44,80 +50,71 @@ export default {
     return {
       email: "",
       password: "",
-      role: "reader", // Default role
+      userCode: "",
       emailError: false,
       passwordError: false,
+      userCodeError: false,
+      loginError: false, // To show or hide the login error message
     };
   },
   methods: {
     validateForm() {
-      this.emailError = !/\S+@\S+\.\S+/.test(this.email); // Check email validity
-      this.passwordError = this.password.length < 8; // Check password length
-      return !this.emailError && !this.passwordError;
+      this.emailError = !/\S+@\S+\.\S+/.test(this.email); // Kiểm tra email hợp lệ
+      this.passwordError = this.password.length < 8; // Kiểm tra mật khẩu ít nhất 8 ký tự
+      this.userCodeError = this.userCode.trim() === ""; // Kiểm tra mã số người dùng (không để trống)
+
+      return !this.emailError && !this.passwordError && !this.userCodeError;
     },
     handleLogin() {
-      if (!this.validateForm()) return;
+      // Clear login error before validating again
+      this.loginError = false;
+
+      if (!this.validateForm()) return; // Prevent login if form is invalid
 
       const storedEmail = localStorage.getItem("email");
       const storedPassword = localStorage.getItem("password");
-      const storedRole = localStorage.getItem("role");
+      const storedUserCode = localStorage.getItem("manguoidung");
+      console.log('Stored User Code:', storedUserCode);
 
-      // Check if email, password, and role match
+      // Kiểm tra xem email, mật khẩu và mã số có khớp không
       if (storedEmail === this.email && storedPassword === this.password) {
-        if (storedRole === this.role) {
-          alert(`Đăng nhập thành công với vai trò ${this.getRoleName(storedRole)}!`);
-          this.$router.push('/Trangquanlisach'); // Redirect to the "About" page
+        if (storedUserCode === this.userCode) {
+          alert("Đăng nhập thành công!");
+          this.$router.push('/Trangquanlisach'); // Chuyển đến trang sau khi đăng nhập thành công
         } else {
-          alert("Bạn đã nhập đúng thông tin nhưng không có quyền phù hợp.");
+          this.loginError = true; // Mã số không đúng
+          alert("Đăng nhập ko thành công!");
         }
       } else {
-        alert("Thông tin đăng nhập không chính xác. Vui lòng thử lại.");
-      }
-    },
-    getRoleName(role) {
-      switch (role) {
-        case "admin":
-          return "Quản trị viên";
-        case "librarian":
-          return "Thủ thư";
-        case "reader":
-        default:
-          return "Độc giả";
+        this.loginError = true; // Thông tin đăng nhập không đúng
       }
     },
     goToSignUp() {
-      this.$router.push({ name: "SignUp" }); // Redirect to the Sign Up page
+      this.$router.push({ name: "SignUp" }); // Chuyển đến trang đăng ký
     },
   },
   created() {
-    // Save sample data only if it doesn't already exist in localStorage
-    if (!localStorage.getItem("email")) {
-      localStorage.setItem("email", "admin@example.com");
-      localStorage.setItem("password", "password123");
-      localStorage.setItem("role", "admin");
-      console.log("Dữ liệu mẫu đã được lưu trữ:");
-      console.log({
-        email: "admin@example.com",
-        password: "password123",
-        role: "admin",
-      });
-    } else {
-      console.log("Dữ liệu mẫu đã tồn tại trong localStorage.");
-    }
+   
   },
 };
 </script>
 
-
-
 <style scoped>
+.pointer-image {
+  width: 100px;          /* Adjust size as needed */
+  height: 100px;
+  border-radius: 50%;    /* Makes the image circular */
+  object-fit: cover;  
+  margin-bottom: 10px; 
+}
+
 /* Container chính của form */
 .login-container {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  width: 70%; /* Đảm bảo form hiển thị tốt trên màn hình nhỏ */
-  max-width: 400px; /* Giới hạn tối đa kích thước */
+  width: 90%;
+  max-width: 400px;
   margin: 70px auto;
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -127,19 +124,19 @@ export default {
 
 /* Tiêu đề */
 .login-container h1 {
-  margin-bottom: 30px;
-  font-size: 24px;
-  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;   
+  font-size: 20px;       
 }
 
 /* Input fields */
 .login-container input {
   width: 100%;
-  padding: 12px;
-  margin: 12px 0;
+  padding: 8px;           
+  margin: 8px 0;          
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;        
 }
 
 .login-container .input-error {
@@ -155,6 +152,17 @@ export default {
   text-align: left;
 }
 
+/* Error panel for login failure */
+.error-panel {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
 /* Buttons */
 .login-container button {
   width: 100%;
@@ -166,45 +174,29 @@ export default {
   margin-top: 15px;
 }
 
-/* Button hover effects */
 .login-container button:hover {
   background-color: #eb120e;
-}
-
-/* Vai trò người dùng (Role selection) */
-.role-selection {
-  margin-top: 20px;
-  text-align: left;
-  color: black;
-}
-
-.role-selection select {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
 /* Button container */
 .button-container {
   display: flex;
-  flex-wrap: wrap; /* Đảm bảo nút không bị tràn */
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 10px;
   gap: 10px;
 }
 
 .confirm-button {
-  flex: 1; /* Các nút chia đều khoảng trống */
-  background-color: #007bff; /* Màu xanh cho nút xác nhận */
+  flex: 1;
+  background-color: #007bff;
   margin-right: 5px;
-  color:white;
+  color: white;
 }
 
 .signup-button {
-  flex: 1; /* Các nút chia đều khoảng trống */
-  background-color: #28a745; /* Màu xanh lá cho Sign Up */
+  flex: 1;
+  background-color: #28a745;
   margin-left: 5px;
   color: white;
 }
@@ -216,24 +208,4 @@ export default {
 .signup-button:hover {
   background-color: #218838;
 }
-
-/* Media queries cho thiết bị nhỏ */
-@media (max-width: 576px) {
-  .button-container {
-    flex-direction: column; /* Đưa các nút xuống hàng trên màn hình nhỏ */
-  }
-
-  .confirm-button,
-  .signup-button {
-    margin: 5px 0; /* Tạo khoảng cách giữa các nút */
-  }
-}
-
-@media (min-width: 1024px) {
-  .login-container {
-    max-width: 500px; /* Kích thước lớn hơn cho màn hình lớn */
-    padding: 30px;
-  }
-}
 </style>
-
