@@ -249,16 +249,17 @@ export default {
   
 }
 .book-item h3 {
-  font-size: clamp(14px, 4vh, 18px); /* Điều chỉnh kích thước chữ tự động từ 14px đến 18px tùy thuộc vào chiều rộng */
+  font-size: clamp(14px, 4vw, 18px); /* Điều chỉnh kích thước chữ tự động từ 14px đến 18px tùy thuộc vào chiều rộng */
   width: 100%; /* Đảm bảo tiêu đề chiếm toàn bộ chiều rộng của phần tử chứa */
   height: 60px; /* Đặt chiều cao cố định cho tiêu đề */
-  line-height: 1.4; /* Điều chỉnh chiều cao dòng cho dễ đọc */
-  padding: 10px; /* Khoảng đệm bên trong */
+  line-height: 1.2; /* Điều chỉnh chiều cao dòng cho dễ đọc */
+  padding: 5px; /* Khoảng đệm bên trong */
   box-sizing: border-box; /* Bao gồm padding và border trong tính toán chiều rộng và chiều cao */
   white-space: normal; /* Cho phép văn bản xuống dòng */
   word-wrap: break-word; /* Tự động xuống dòng khi gặp từ dài */
   margin-bottom: 10px;
   text-align: center;
+  text-overflow: ellipsis; /* Thêm dấu ba chấm nếu văn bản dài hơn chiều rộng */
   font-weight: bold;}
 .book-item.selected {
     border-color: #28a745;
