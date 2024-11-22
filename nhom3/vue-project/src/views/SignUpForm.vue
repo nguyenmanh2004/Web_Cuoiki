@@ -3,7 +3,7 @@
     <!-- Image added here -->
     <img src="https://i.pinimg.com/originals/ae/c0/b0/aec0b0923bfd5ac90ee73b58d8430511.gif" alt="Pointer Character" class="pointer-image" />
     
-    <h1 >Sign Up</h1>
+    <h1 >Đăng kí</h1>
 
     <form @submit.prevent="handleSignUp">
       <input
@@ -45,8 +45,8 @@
 </p>
 
       <div class="button-container">
-        <button type="submit" class="signup-button">Confirm</button>
-        <button type="button" @click="goToLogin" class="login-button">Log In</button>
+        <button type="submit" class="signup-button">Xác nhận</button>
+        <button type="button" @click="goToLogin" class="login-button">Đăng Nhập</button>
       </div>
     </form>
   </div>
@@ -155,6 +155,8 @@ export default {
   display: flex;
   justify-content: space-between;
   margin-top: 15px; /* Giảm khoảng cách trên */
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .signup-button,

@@ -3,7 +3,7 @@
     <!-- Image added here -->
     <img src="https://i.pinimg.com/enabled_lo_mid/474x/39/4d/00/394d00e713d6b3a4a928651deaccdfc0.jpg" alt="Pointer Character" class="pointer-image" />
     
-    <h1>Login</h1>
+    <h1>Đăng Nhập</h1>
     <form @submit.prevent="handleLogin">
       <input
         type="email"
@@ -36,8 +36,8 @@
      
 
       <div class="button-container">
-        <button type="submit" class="confirm-button">Confirm</button>
-        <button type="button" @click="goToSignUp" class="signup-button">Sign Up</button>
+        <button type="submit" class="confirm-button">Xác nhận </button>
+        <button type="button" @click="goToSignUp" class="signup-button">Đăng Kí</button>
       </div>
     </form>
   </div>
