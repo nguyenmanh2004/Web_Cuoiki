@@ -12,7 +12,7 @@
         <div class="chat-box">
           <div class="chat-message">
             <p>Chào mừng bạn đến với thư viện sách ! Đây là nơi bạn có thể xem và mượn nhiều loại sách hay.</p>
-          <p>Nhấn vào nút dưới để bắt đầu.</p>
+            <p>Nhấn vào nút dưới để bắt đầu.</p>
           </div>
         </div>
 
@@ -24,17 +24,11 @@
     <!-- Main Content -->
     <Header />
     <button class="toggle-sidebar-btn" @click="toggleSidebar">
-      <i :class="isSidebarVisible ? 'fas fa-times' : 'fas fa-bars'"></i> 
+      <i :class="isSidebarVisible ? 'fas fa-times' : 'fas fa-bars'"></i>
       {{ isSidebarVisible ? 'Đóng Sidebar' : 'Mở Sidebar' }}
     </button>
-    <Sidebar 
-      v-if="isSidebarVisible" 
-      @addBook="showAddBookPanel" 
-      @editBook="editBook" 
-      @deleteBook="deleteBook" 
-      @borrowBook="borrowBook" 
-      @filterBooks="filterBooks" 
-    />
+    <Sidebar v-if="isSidebarVisible" @addBook="showAddBookPanel" @editBook="editBook" @deleteBook="deleteBook"
+      @borrowBook="borrowBook" @filterBooks="filterBooks" />
     <div v-if="!isSidebarVisible" class="sidebar-placeholder"></div>
 
     <!-- No Books Message -->
@@ -61,7 +55,9 @@
     <!-- Modal Confirm -->
     <div v-if="showModal" class="modal-overlay animate__animated animate__fadeIn">
       <div class="modal-content animate__animated animate__zoomIn">
-        <div v-if="modalMessage === 'Vui lòng chọn sách để sửa.' || modalMessage === 'Vui lòng chọn sách để xóa.' || modalMessage === 'Vui lòng chọn sách để mượn.'" class="modal-image">
+        <div
+          v-if="modalMessage === 'Vui lòng chọn sách để sửa.' || modalMessage === 'Vui lòng chọn sách để xóa.' || modalMessage === 'Vui lòng chọn sách để mượn.'"
+          class="modal-image">
           <img src="../assets/noti.gif" alt="Alert Image" />
         </div>
         <h3>{{ modalMessage }}</h3>
@@ -119,6 +115,15 @@ export default {
         { id: 3, title: "Hunter X Hunter  tập 4", author: "Togashi Yoshihiro", category: "Truyện Mangga", year: 2019, status: "Hư hỏng", image: "https://i.pinimg.com/736x/74/1f/59/741f592b0acef332bf9deaa6218d9049.jpg" },
         { id: 4, title: "Kimetsu No yaiba tập 12", author: "Gotoge Koyoharu", category: "Thể loại Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/4a/02/4a/4a024a1dd75ea0ce6b0036f0cf3b1a45.jpg" },
         { id: 86, title: "Doraemon Tập 1", author: "Fujiko F. Fujio", category: "Truyện Manga", year: 1970, status: "Còn sách", image: "https://i.pinimg.com/736x/88/ce/8e/88ce8eafa3ffb893570cf2cf274857dc.jpg" },
+        { id: 5, title: "Thám tử Lừng danh CONAN", author: "GOSO AOYAMA", category: "Truyện Manga", year: 2001, status: "Còn sách", image: "https://i.pinimg.com/736x/7b/cf/6e/7bcf6e66236776f3f89a8e9edd654f0a.jpg" },
+        { id: 10, title: "Kimetsu No yaiba tập 14", author: "Gotoge Koyoharu", category: "Truyện Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/be/6d/37/be6d376727f3d11d7f49ce8d4069d38b.jpg" },
+        { id: 15, title: "Doremon tập 44", author: "FUJIKO F FuJIO ", category: "Truyện tranh", year: 2022, status: "Còn sách", image: "https://i.pinimg.com/736x/22/fc/4c/22fc4c72895d331f392bd02427893b8f.jpg" },
+        { id: 20, title: "Chú thuật hồi chiến tập 1", author: "TAkutami Gege", category: "Truyện Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/e8/bb/c4/e8bbc4419fc5531cc10a7e14596e8c9c.jpg" },
+        { id: 94, title: "Em Học Lập Trình Scratch", author: "Robert Martin", category: "Sách Lập Trình", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/fc/80/3b/fc803ba4855018e00a49111ab30287f2.jpg" },
+        { id: 95, title: "Clean Code", author: "TAkutami Gege", category: "Sách Lập Trình", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/474x/bd/17/20/bd1720e504efe298254fbb9725571084.jpg" },
+        { id: 96, title: "Học Như siêu nhân tư duy", author: "Ian Gilbert", category: "Sách Hướng dẫn", year: 2021, status: "Còn sách", image: "https://i.pinimg.com/736x/2d/2f/93/2d2f93e80f602c23582947b3b4103bf1.jpg" },
+        { id: 96, title: "Danh Nhân Thế Giới - LINCOLN", author: "Publishing Company", category: "Truyện danh nhân", year: 2023, status: "Hư hỏng", image: "https://i.pinimg.com/736x/49/27/4f/49274fa6790c8c976faf9c2575b50469.jpg" },
+        { id: 30, title: "Dragon Ball Super tập 15", author: "Akira Toriyama", category: "Truyện Manga", year: 2023, status: "Đã mượn", image: "https://i.pinimg.com/enabled_lo_mid/736x/60/1b/90/601b90e64e522854e663d5a31d8b1ba0.jpg" },
         { id: 6, title: "Đắc Nhân Tâm", author: "Dale Carnegie", category: "Phát triển bản thân", year: 1936, status: "Còn sách", image: "https://i.pinimg.com/736x/1c/22/df/1c22df7132ad8f1358688b23831e9eaf.jpg" },
         { id: 7, title: "Bóc Phốt Tài Chính", author: "Nguyễn Trọng Nhân", category: "Tài chính", year: 2021, status: "Còn sách", image: "https://i.pinimg.com/236x/b5/4d/3a/b54d3a23fd5847ccb59632aef5d02be3.jpg" },
         { id: 8, title: "10 Điều Khác Biệt Nhất Giữa Kẻ Giàu & Người Nghèo", author: "Keith Cameron Smith", category: "Phát triển bản thân", year: 2015, status: "Đã mượn", image: "https://i.pinimg.com/236x/62/49/da/6249daffcfb12ca37d9d61580122ed08.jpg" },
@@ -199,17 +204,10 @@ export default {
         { id: 83, title: "Nơi Chỉ Người Đọc Sách Mới Có Thể Chạm Tới", author: "Takashi Saito", category: "Tri thức", year: 2019, status: "Còn sách", image: "https://i.pinimg.com/236x/77/16/56/771656584986ed06767f3c3c861b6d0b.jpg" },
         { id: 84, title: "Tư Duy Phản Biện", author: "Zoe McKey", category: "Tâm lý học", year: 2020, status: "Hư hỏng", image: "https://i.pinimg.com/236x/e6/41/47/e64147dba8b695f17c5075c9bfe8db04.jpg" },
         { id: 85, title: "Hạt Giống Tâm Hồn", author: "Nhiều Tác Giả", category: "Tạo động lực", year: 2000, status: "Còn sách", image: "https://i.pinimg.com/236x/b9/cf/29/b9cf292da7768b52715d8885cf7bcd6b.jpg" },
-        
-        { id: 5, title: "Thám tử Lừng danh CONAN", author: "GOSO AOYAMA", category: "Truyện Manga", year: 2001, status: "Còn sách", image: "https://i.pinimg.com/736x/7b/cf/6e/7bcf6e66236776f3f89a8e9edd654f0a.jpg" },
-     
-        { id: 10, title: "Kimetsu No yaiba tập 14", author: "Gotoge Koyoharu", category: "Truyện Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/be/6d/37/be6d376727f3d11d7f49ce8d4069d38b.jpg" },
-        { id: 15, title: "Doremon tập 44", author: "FUJIKO F FuJIO ", category: "Truyện tranh", year: 2022, status: "Còn sách", image: "https://i.pinimg.com/736x/22/fc/4c/22fc4c72895d331f392bd02427893b8f.jpg" },
-       
-        { id: 20, title: "Chú thuật hồi chiến tập 1", author: "TAkutami Gege", category: "Truyện Manga", year: 2020, status: "Còn sách", image: "https://i.pinimg.com/736x/e8/bb/c4/e8bbc4419fc5531cc10a7e14596e8c9c.jpg" },
-        { id: 25, title: "Doremon tập 44", author: "FUJIKO F FuJIO ", category: "Truyện Manga", year: 2022, status: "Còn sách", image: "https://i.pinimg.com/736x/22/fc/4c/22fc4c72895d331f392bd02427893b8f.jpg" },
-        { id: 30, title: "Dragon Ball Super tập 15", author: "Akira Toriyama", category: "Truyện Manga", year: 2023, status: "Đã mượn", image: "https://i.pinimg.com/enabled_lo_mid/736x/60/1b/90/601b90e64e522854e663d5a31d8b1ba0.jpg" },
-];      
-      
+
+
+      ];
+
       localStorage.setItem("books", JSON.stringify(sampleBooks));
     }
     this.books = JSON.parse(localStorage.getItem("books"));
@@ -220,8 +218,8 @@ export default {
       this.isAddBookPanelVisible = true;
     },
     closeAddBookPanel() {
-  this.isAddBookPanelVisible = false;
-},
+      this.isAddBookPanelVisible = false;
+    },
     closeEditBookPanel() {
       this.isEditBookPanelVisible = false;
     },
@@ -246,7 +244,7 @@ export default {
       this.books.push(newBook);
       this.allBooks.push(newBook);
       localStorage.setItem("books", JSON.stringify(this.books));
-     
+
     },
     deleteBook() {
       if (this.selectedBookId !== null) {
@@ -261,7 +259,7 @@ export default {
     borrowBook() {
       if (this.selectedBookId !== null) {
         const book = this.books.find(b => b.id === this.selectedBookId);
-        if (book && book.status === "Còn sách" ) {
+        if (book && book.status === "Còn sách") {
           const currentDate = new Date().toLocaleDateString();
           this.modalMessage = `Bạn có chắc muốn mượn sách này? Ngày mượn: ${currentDate}`;
           this.actionToConfirm = this.confirmBorrowBook;
@@ -348,12 +346,14 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75); /* Darker background overlay */
+  background: rgba(0, 0, 0, 0.75);
+  /* Darker background overlay */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 20px; /* Add padding for mobile devices */
+  padding: 20px;
+  /* Add padding for mobile devices */
 }
 
 /* Tutorial Box */
@@ -363,9 +363,11 @@ export default {
   border-radius: 12px;
   text-align: center;
   max-width: 400px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Softer shadow */
- 
-  position: relative; /* For positioning of child elements */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* Softer shadow */
+
+  position: relative;
+  /* For positioning of child elements */
 }
 
 /* Character Image */
@@ -385,7 +387,8 @@ export default {
   background-color: #f5f5f5;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  /* Inner shadow for depth */
   margin-bottom: 25px;
   font-size: 16px;
   line-height: 1.5;
@@ -394,7 +397,8 @@ export default {
 
 .chat-message p {
   margin: 10px 0;
-  color: #444; /* Slightly darker text */
+  color: #444;
+  /* Slightly darker text */
 }
 
 /* Start Button */
@@ -407,7 +411,7 @@ export default {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  
+
 }
 
 .btn-start:hover {
@@ -484,10 +488,13 @@ export default {
   align-items: center;
   z-index: 1000;
 }
-.modal-image img {
-  max-width: 150px;  /* Set max width */
-  height: auto;      /* Maintain aspect ratio */
-  margin-bottom: 20px; /* Space between image and text */
-}
 
+.modal-image img {
+  max-width: 150px;
+  /* Set max width */
+  height: auto;
+  /* Maintain aspect ratio */
+  margin-bottom: 20px;
+  /* Space between image and text */
+}
 </style>

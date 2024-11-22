@@ -94,15 +94,19 @@
   
       // Handle image upload
       handleProfileImageUpload(event) {
-        const file = event.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = () => {
-            this.profileImage = reader.result;
-            localStorage.setItem("profileImage", this.profileImage);
-          };
-          reader.readAsDataURL(file);
-        }
+  const file = event.target.files[0];
+  if (file) {
+    // Hiển thị ảnh ngay lập tức
+    this.profileImage = URL.createObjectURL(file);
+
+    // Lưu ảnh vào localStorage để giữ lại sau khi reload
+    const reader = new FileReader();
+    reader.onload = () => {
+      localStorage.setItem("profileImage", reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
+
       },
   
       // Start editing personal info
