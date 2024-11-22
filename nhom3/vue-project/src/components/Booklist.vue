@@ -248,7 +248,18 @@ export default {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   
 }
-
+.book-item h3 {
+  font-size: clamp(14px, 4vw, 18px); /* Điều chỉnh kích thước chữ tự động từ 14px đến 18px tùy thuộc vào chiều rộng */
+  width: 100%; /* Đảm bảo tiêu đề chiếm toàn bộ chiều rộng của phần tử chứa */
+  height: 60px; /* Đặt chiều cao cố định cho tiêu đề */
+  line-height: 1.4; /* Điều chỉnh chiều cao dòng cho dễ đọc */
+  padding: 10px; /* Khoảng đệm bên trong */
+  box-sizing: border-box; /* Bao gồm padding và border trong tính toán chiều rộng và chiều cao */
+  white-space: normal; /* Cho phép văn bản xuống dòng */
+  word-wrap: break-word; /* Tự động xuống dòng khi gặp từ dài */
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: bold;}
 .book-item.selected {
     border-color: #28a745;
     background-color: #e9ffe9; /* Hiệu ứng nhẹ khi được chọn */
