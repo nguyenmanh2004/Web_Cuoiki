@@ -4,7 +4,7 @@
       <!-- Logo -->
       <div class="logo">
         <i class="fas fa-book"></i>
-        <h1>BookHavent</h1>
+        <h1>Thư viện sách SkyHub </h1>
       </div>
 
       <!-- Navigation -->
